@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "Web app built with Node.js, Express, MongoDB, and React",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.6.3"
   },
   "devDependencies": {
-    "concurrently": "^4.1.1"
+    "concurrently": "^6.0.0"
   },
   "scripts": {
     "start": "node server.js",
