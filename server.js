@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }); 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }); 
 mongoose.connection.once('open', () => {
   console.log('Connected to the Database.');
 });
