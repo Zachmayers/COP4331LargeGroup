@@ -1,62 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { get, patch } from 'axios';
 
-class ArticleEdit extends React.Component {
-  constructor() {
-    super();
-    this.state = { title: '', content: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
+function ArticleEdit(props) {
 
-  componentDidMount() {
-    get(`/api/articles/${this.props.match.params._id}`)
-      .then((response) => {
-        this.setState(response.data);
-      })
-      .catch(error => console.log('error', error));      
-  }
+  const initialState = { title: '', content: '' }
+  const [article, setArticle] = useState(initialState)
 
-  handleSubmit(event) {
+  useEffect(function() {
+    async function getArticle() {
+      try {
+        const response = await get(`/api/articles/${props.match.params._id}`);
+        setArticle(response.data);        
+      } catch(error) {
+        console.log(error);
+      }
+    }
+    getArticle();    
+  }, [props]);
+
+  function handleSubmit(event) {
     event.preventDefault();
-    patch(`/api/articles/${this.state._id}`, this.state)
-      .then(() => {
-        this.props.history.push(`/articles/${this.state._id}`);
-      })
-      .catch(error => console.log('error', error));
+    async function updateArticle() {
+      try {
+        await patch(`/api/articles/${article._id}`, article);
+        props.history.push(`/articles/${article._id}`);        
+      } catch(error) {
+        console.log(error);
+      }
+    }
+    updateArticle();
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  function handleChange(event) {
+    setArticle({...article, [event.target.name]: event.target.value})
   }
 
-  handleCancel() {
-    this.props.history.push(`/articles/${this.state._id}`);
+  function handleCancel() {
+    props.history.push(`/articles/${article._id}`);
   }
 
-  render() {
-    return (
-      <div>
-        <h1>Edit {this.state.title}</h1>
-        <hr/>
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Title</label>
-            <input type="text" name="title" value={this.state.title} onChange={this.handleChange} className="form-control" />
-          </div>
-          <div className="form-group">
-            <label>Content</label>
-            <textarea name="content" rows="5" value={this.state.content} onChange={this.handleChange} className="form-control" />
-          </div>
-          <div className="btn-group">
-            <button type="submit" className="btn btn-primary">Update</button>
-            <button type="button" onClick={this.handleCancel} className="btn btn-secondary">Cancel</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1>Edit {article.title}</h1>
+      <hr/>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Title</label>
+          <input type="text" name="title" value={article.title} onChange={handleChange} className="form-control" />
+        </div>
+        <div className="form-group">
+          <label>Content</label>
+          <textarea name="content" rows="5" value={article.content} onChange={handleChange} className="form-control" />
+        </div>
+        <div className="btn-group">
+          <button type="submit" className="btn btn-primary">Update</button>
+          <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default ArticleEdit;

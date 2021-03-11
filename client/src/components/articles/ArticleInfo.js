@@ -1,47 +1,44 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from 'axios'; 
 import { Link } from 'react-router-dom';
 
-class ArticleInfo extends React.Component {
-  constructor() {
-    super();
-    this.state = { article: {} };
-    this.handleDelete = this.handleDelete.bind(this);
+function ArticleInfo(props) {
+  const [article, setArticle] = useState({}); 
+
+  useEffect(function() { 
+    async function getArticle() {
+      try {
+        const response = await axios.get(`/api/articles/${props.match.params._id}`); 
+        setArticle(response.data);      
+      } catch(error) {
+        console.log('error', error);
+      }
+    }
+    getArticle();    
+  }, [props]); 
+
+  async function handleDelete() { 
+    try {
+      await axios.delete(`/api/articles/${props.match.params._id}`); 
+      props.history.push("/articles"); 
+    } catch(error) {
+      console.error(error);
+    }
   }
 
-  componentDidMount() {
-    axios.get(`/api/articles/${this.props.match.params._id}`)
-      .then((response) => { 
-        this.setState({
-          article: response.data
-        })
-      })
-      .catch(error => console.log('error', error));
-  }
-
-  handleDelete() {
-    axios.delete(`/api/articles/${this.props.match.params._id}`)
-      .then(() => {
-        this.props.history.push("/articles")
-      })
-      .catch(error => console.log('error', error));
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>{this.state.article.title}</h2>
-        <small>_id: {this.state.article._id}</small>
-        <p>{this.state.article.content}</p>
-        <p className='btn-group'>
-          <Link to={`/articles/${this.state.article._id}/edit`} className="btn btn-info">Edit</Link> 
-          <button onClick={this.handleDelete} className="btn btn-danger">Delete</button> 
-          <Link to="/articles" className="btn btn-secondary">Close</Link>
-        </p>
-        <hr/>
+  return ( 
+    <div>
+      <h2>{article.title}</h2>
+      <small>_id: {article._id}</small>
+      <p>{article.content}</p>
+      <div className="btn-group">
+        <Link to={`/articles/${article._id}/edit`} className="btn btn-primary">Edit</Link> 
+        <button onClick={handleDelete} className="btn btn-danger">Delete</button> 
+        <Link to="/articles" className="btn btn-secondary">Close</Link>
       </div>
-    )
-  }
-}
+      <hr/>
+    </div>
+  );
+};
 
 export default ArticleInfo;
