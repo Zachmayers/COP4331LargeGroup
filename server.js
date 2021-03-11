@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
 
-mongoose.connect("mongodb+srv://Server:4giPdbuiVqY75PU3@largeproject.grhmk.mongodb.net/LargeProject?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }); 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }); 
 mongoose.connection.once('open', () => {
   console.log('Connected to the Database.');
 });
