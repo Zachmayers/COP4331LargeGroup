@@ -1,5 +1,5 @@
 {
-  "name": "mern-app-tutorial",
+  "name": "listenin",
   "version": "1.0.0",
   "description": "Web app built with Node.js, Express, MongoDB, and React",
   "main": "server.js",
