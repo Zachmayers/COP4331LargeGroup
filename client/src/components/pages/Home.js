@@ -11,11 +11,12 @@ function Home() {
     
       <div class="center">
       
-        <h1>DOG</h1>
+        <h1>listen in</h1>
         <b class="blink">.</b><b class="blink2">.</b><b class="blink3">.</b>
       </div>
       <div class="center">
-        stay tuned.
+        stay tuned 
+        <a href="https://github.com/Zachmayers/COP4331LargeGroup">Checkout our github</a>
       </div>
       {<Background/>}
     </div>
