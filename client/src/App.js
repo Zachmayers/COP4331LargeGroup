@@ -1,4 +1,5 @@
 import React from 'react';
+import Particles from "react-tsparticles";
 import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom';
 import './App.css';
 import Home from './components/pages/Home';
@@ -42,6 +43,7 @@ function Main() {
       <Route exact path="/articles/:_id" component={ArticleInfo} />
       <Route exact path="/articles/:_id/edit" component={ArticleEdit} />
     </Switch>
+   
   );
 }
 
