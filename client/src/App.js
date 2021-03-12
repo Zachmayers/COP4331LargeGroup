@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
 import Home from './components/pages/Home';
-import logo from './Logo1.png';
+import logo from './Logo-Head-Forward.png';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function Navigation() {
 function HomeNavbar() {
   return (
   <div>
-    <img src={logo}/>
+    <img  src={logo}/>
   </div>
   );
   

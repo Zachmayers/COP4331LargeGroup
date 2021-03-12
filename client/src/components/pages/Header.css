@@ -7,23 +7,26 @@
     width: 100%;
     color: #ffffff;
   }
+  .titleText {
+    color: ivory;
+  }
 
   .Logo {
       src:'./Logo1.png';
   }
 
   .blink {
-    animation: blink-animation 1s steps(5, start) infinite;
+    animation: blink-animation 1s steps(6, start) infinite;
     -webkit-animation: blink-animation 3s steps(5, start) infinite;
     animation: blink-animation 1s steps(5, start) infinite;
   }
   .blink2 {
-    animation: blink-animation 1s steps(5, start) infinite;
+    animation: blink-animation 1s steps(2, start) infinite;
     -webkit-animation: blink-animation 5s steps(5, start) infinite;
     animation: blink-animation 1s steps(5, start) infinite;
   }
   .blink3 {
-    animation: blink-animation 1s steps(5, start) infinite;
+    animation: blink-animation 1s steps(7, start) infinite;
     -webkit-animation: blink-animation 7s steps(5, start) infinite;
     animation: blink-animation 1s steps(5, start) infinite;
   }

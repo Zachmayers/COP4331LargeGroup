@@ -7785,7 +7785,7 @@
     "kleur" "^3.0.2"
     "sisteransi" "^1.0.0"
 
-"prop-types@^15.0.0", "prop-types@^15.6.2":
+"prop-types@^15.0.0", "prop-types@^15.6.2", "prop-types@15.x.x":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -7991,7 +7991,7 @@
     "strip-ansi" "5.2.0"
     "text-table" "0.2.0"
 
-"react-dom@^16.8.6":
+"react-dom@^16.8.6", "react-dom@>= 16.4.0":
   "integrity" "sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.8.6.tgz"
   "version" "16.8.6"
@@ -8100,7 +8100,14 @@
   optionalDependencies:
     "fsevents" "2.0.6"
 
-"react@^0.14.0 || ^15.0.0 || ^16.0.0", "react@^16.0.0", "react@^16.8.6", "react@>=15":
+"react-spring@6.1.0":
+  "integrity" "sha512-7LuX1IrYVz+nECMfn4vqr2IfY6rBHpka1cWYCQ4Wz+PVaTVEuvT0VJhjHmWdr9Bw8j63FSuvTTZX2mb4ZUSc/A=="
+  "resolved" "https://registry.npmjs.org/react-spring/-/react-spring-6.1.0.tgz"
+  "version" "6.1.0"
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+
+"react@^0.14.0 || ^15.0.0 || ^16.0.0", "react@^16.0.0", "react@^16.8.6", "react@>= 16.4.0", "react@>=15":
   "integrity" "sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.8.6.tgz"
   "version" "16.8.6"
