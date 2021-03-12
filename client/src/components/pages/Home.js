@@ -22,9 +22,6 @@ function Home() {
   );
 }
 
-
-
-
 function Background() {
   return(
     <Particles
