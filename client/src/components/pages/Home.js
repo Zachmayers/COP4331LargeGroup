@@ -2,15 +2,17 @@ import React from 'react';
 import Particles from "react-tsparticles";
 import './Header.css';
 // import UnopDropdown from "unop-react-dropdown";
-
+import { animated } from 'react-spring';
 
 function Home() { 
+
   return (
     <div>
     
       <div class="center">
       
         <h1>listen in</h1>
+        <b class="blink">.</b><b class="blink2">.</b><b class="blink3">.</b>
       </div>
       <div class="center">
         stay tuned.
@@ -19,6 +21,9 @@ function Home() {
     </div>
   );
 }
+
+
+
 
 function Background() {
   return(
