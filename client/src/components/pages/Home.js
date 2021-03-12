@@ -15,8 +15,8 @@ function Home() {
         <b class="blink">.</b><b class="blink2">.</b><b class="blink3">.</b>
       </div>
       <div class="center">
-        stay tuned 
-        <a href="https://github.com/Zachmayers/COP4331LargeGroup">Checkout our github</a>
+        stay tuned      -
+        <a href="https://github.com/Zachmayers/COP4331LargeGroup"> Checkout our github</a>
       </div>
       {<Background/>}
     </div>
