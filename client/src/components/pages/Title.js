@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { ModalTitle } from 'react-bootstrap';
-import './Header.css';
+import './Style/Header.css';
 import logo from './Title-img-1.svg';
 
 function Title() { 
