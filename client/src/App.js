@@ -12,8 +12,6 @@ import { Credentials } from './components/pages/Credentials';
 import axios from 'axios';
 
 function App() {
-  
-
   return (
     <div className="App">     
       <Router>

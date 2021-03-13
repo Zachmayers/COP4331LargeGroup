@@ -116,7 +116,7 @@ const NowPlaying = () => {
                     <Dropdown label="Genre:" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
                     <Dropdown label="Playlist:" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
                         <div className="center">
-                            <button type='button' id="buttn"className="btn btn-success col-sm-3">
+                            <button type='button' id="buttn" className="btn btn-success col-sm-3">
                                 Search
                             </button>
                         </div>
