@@ -1,6 +1,6 @@
 import React, { useState , useEffect}from 'react';
-import Background from './Background';
-import './Style/Header.css';
+import Background from '../Background';
+import '../Style/Header.css';
 import Dropdown from '././Dropdown';
 import Listbox from '././Listbox';
 import Detail from '././Detail';
