@@ -8,4 +8,3 @@ export const scopes = [
     "user-read-currently-playing",
     "user-read-playback-state",
 ];
-https://accounts.spotify.com/en/authorize?client_id=717d9cf9ead04d2fb7497fda4d407dfe&redirect_uri=listenin.com:%2F%2Fcallback&scope=user-top-read%20user-read-currently-playing%20user-read-playback-state&response_type=token&show_dialog=true
