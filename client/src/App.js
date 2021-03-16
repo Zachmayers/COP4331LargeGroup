@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter as Router, NavLink, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
 import Home from './components/pages/Home';
 import NowPlaying from './components/pages/NowPlaying'
+import Testing from './components/pages/Testing'
 import logo from './Logo-Head-Forward.png';
 import Dropdown from './components/pages/Dropdown';
 import Listbox from './components/pages/Listbox';
@@ -12,12 +13,12 @@ import { Credentials } from './components/pages/Credentials';
 import axios from 'axios';
 
 function App() {
-  
 
   return (
     <div className="App">     
       <Router>
-        <Navigation />
+        <Navigation>
+          </Navigation>
         <div>
           <Main />
         </div>
@@ -52,9 +53,12 @@ function Main() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/NowPlaying" component={NowPlaying} />
+      <Route exact path="/Testing" component={Testing} />
     </Switch>
    
   );
 }
+
+
 
 export default App;

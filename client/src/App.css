@@ -17,3 +17,8 @@
       background-image: "./Logo1.png";
     }
   }
+
+  .navbar {
+    position: fixed;
+    background-color: antiquewhite;
+  }
