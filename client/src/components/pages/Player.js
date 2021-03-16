@@ -34,7 +34,7 @@ class Player extends React.Component {
           <h1>How about a little music while you wait?</h1>
           <button onClick={this.play}>Play</button>
       <button onClick={this.pause}>Pause</button>
-          <audio ref={'song.mp3'} />
+          <audio src={'song.mp3'} />
           </div>
         </>
       );

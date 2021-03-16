@@ -3,7 +3,7 @@ import * as $ from "jquery";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./Hash";
 import Music from "../Music";
-import logo from "./PinkerLogo.png";
+import logo from "../PinkerLogo.png";
 import "./Login.css";
 import ListenIn from "../ListenIn";
 import Title from "../Title";
