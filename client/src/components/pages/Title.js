@@ -7,8 +7,7 @@ function Title() {
 
   return (
       <div class="center">
-        <img  src={logo}/>
-        <b class="blink">.</b>
+        <img src={logo}/><br />
       </div>
   );
 }

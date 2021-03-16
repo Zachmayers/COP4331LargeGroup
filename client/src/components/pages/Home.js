@@ -5,13 +5,15 @@ import './Style/Header.css';
 import Title from './Title.js';
 import ListenIn from './ListenIn.js';
 import Background from './Background';
+import Player from './Player';
 
 function Home() { 
 
   return (
     <div>
       <Title />
-      <ListenIn />
+      <Player />
+        <ListenIn />
       <Background/>
     </div>
   );

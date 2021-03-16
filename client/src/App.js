@@ -3,19 +3,18 @@ import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react
 import Particles from "react-tsparticles";
 import './App.css';
 import Home from './components/pages/Home';
-import NowPlaying from './components/pages/NowPlaying'
-import Testing from './components/pages/Testing'
+import NowPlaying from './components/pages/NowPlaying/NowPlaying'
+import Login from './components/pages/Login/Login'
 import logo from './Logo-Head-Forward.png';
-import Dropdown from './components/pages/Dropdown';
-import Listbox from './components/pages/Listbox';
-import Detail from './components/pages/Detail';
-import { Credentials } from './components/pages/Credentials';
+import Dropdown from './components/pages/NowPlaying/Dropdown';
+import Listbox from './components/pages/NowPlaying/Listbox';
+import Detail from './components/pages/NowPlaying/Detail';
+import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 
 function App() {
-
   return (
-    <div className="App">     
+    <div className="App">
       <Router>
         <Navigation>
           </Navigation>
@@ -41,6 +40,7 @@ function HomeNavbar() {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
         </ul>
       </div>
     </nav>
@@ -49,13 +49,13 @@ function HomeNavbar() {
 
 function Main() {
   return(
-    
+
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/NowPlaying" component={NowPlaying} />
-      <Route exact path="/Testing" component={Testing} />
+      <Route exact path="/Login" component={Login} />
     </Switch>
-   
+
   );
 }
 
