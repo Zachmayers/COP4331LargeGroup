@@ -37,9 +37,10 @@ function Navigation() {
 
 function HomeNavbar() {
   return(
-    <nav className="navbar navbar-expand white">
+    <nav className="navbar navbar-expand bg-transparent">
       <div className='container'>
         <ul className="navbar-nav mr-auto">
+        <a class="navbar-brand text-white" href="#">Listen In</a>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>

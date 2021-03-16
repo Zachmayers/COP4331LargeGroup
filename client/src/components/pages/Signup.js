@@ -9,16 +9,16 @@ function Signup(props) {
     const [User, setSignup] = useState(initialState) 
     
     function handleChange(event) { 
-        setSignup({...Signup, [event.target.name]: event.target.value})
+        setSignup({...User, [event.target.name]: event.target.value})
     }
     
     function handleSubmit(event) { 
         event.preventDefault();     
-        if(!Signup.title || !Signup.content ) return 
+        if(!User.title || !User.content ) return 
         async function postSignup() {
         try {
-            const response = await post('/api/Signups', Signup); 
-            props.history.push(`/Signups/${response.data._id}`);  
+            const response = await post('/api/Users', User); 
+            props.history.push(`/Users/${response.data._id}`);  
         } catch(error) {
             console.log('error', error);
         }
@@ -27,44 +27,50 @@ function Signup(props) {
     }
     
     function handleCancel() {
-        props.history.push("/Signups");
+        props.history.push("/Users");
     }
     
     return (
         <div>
             <div class="container">
                 <div class="row xs-4 sm-4 md-4 lg-4  text-light">
-                    <img src={logo} className="Login-logo" alt="logo" />
-                        <p>Please create an account!</p>
-                </div>
-                <form onSumbit={handleSubmit}>
-                <div class="container text-success offset-5">
-                    <div class="row sm-4 md-4 lg-4">
-                        <div class="col-md-12 col-sm-10 col-xs-10 control-label ">
-                            <div className="form-group">
-                                <label>Username</label>
-                                <textarea name="content" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                        </div>
-                            <div class="row sm-4 md-4 lg-4">
-                                <div class="col-md-12 col-sm-10 col-xs-10  control-label">    
-                                    <label>Password</label>
-                                    <textarea name="content" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row sm-4 md-4 lg-4 row-offset-sm-5">
-                                <div className="col col-offset-sm-4 btn-group">
-                                    <input type="submit" value="Submit" className="btn btn-primary" />
-                                    <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button>
-                                </div>
-                            </div>
+                    <div class="col col-10">
+                        <img src={logo} className="Login-logo" alt="logo" />
+                            <p>Please create an account!</p>
                     </div>
                 </div>
+                <form onSumbit={handleSubmit}>
+                <div className="form-group">
+                    <div class="container text-success">
+                        <div class="row sm-4 md-4 lg-4">
+                            <div class="col col-10 control-label ">
+                                
+                                    <label>Username</label>
+                                        <textarea name="Username" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
+                                    <label>Password</label>
+                                        <textarea name="Password" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
+                                    <label>First</label>
+                                        <textarea name="FirstName" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
+                                    <label>Last</label>
+                                        <textarea name="LastName" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
+                                    <label>Email</label>
+                                        <textarea name="Email" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
+                                    <div class="row sm-4 md-4 lg-4 row-offset-sm-5">
+                                        <div className="col col-offset-sm-4 btn-group">
+                                            <input type="submit" value="Submit" className="btn btn-primary" />
+                                            <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
                 </form>
-            </div>
+          
            
-            
+                </div>
         <Background />
+        
         </div>
     )
 }
