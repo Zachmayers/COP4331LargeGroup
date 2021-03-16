@@ -1,17 +1,21 @@
-const express = require('express');
+const express  = require('express')
 const mongoose = require('mongoose');
 const router = require('./routes/index');
-const path = require('path');           
-const PORT = process.env.PORT || 3001;  
-require('dotenv').config();         
+const path = require('path');
+const PORT = process.env.PORT || 3001;
+require('dotenv').config();
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
+app.use('/signup', router);
+//allows the use of the user schema for sign up.
+require('./models/user')
+mongoose.model("User")
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }); 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to the Database.');
 });
@@ -19,7 +23,7 @@ mongoose.connection.on('error', err => {
   console.log('Mongoose Connection Error : ' + err);
 });
 
-if (process.env.NODE_ENV === 'production') {           
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {

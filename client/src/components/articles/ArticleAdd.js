@@ -34,11 +34,11 @@ function ArticleAdd(props) {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title</label>
-          <input name="title" type="text" value={article.title} onChange={handleChange} className="form-control" />
+          
         </div>
         <div className="form-group">
           <label>Content</label>
-          <textarea name="content" rows="5" value={article.content} onChange={handleChange} className="form-control" />
+          <textarea name="content" rows="1" value={article.content} onChange={handleChange} className="form-control" />
         </div>
         <div className="btn-group">
           <input type="submit" value="Submit" className="btn btn-primary" />

@@ -8,7 +8,7 @@ import { Credentials } from './Credentials';
 import axios from 'axios';
 
 const NowPlaying = () => {
-    const spotify = Credentials();  
+  const spotify = Credentials();  
 
   console.log('RENDERING APP.JS');
 
