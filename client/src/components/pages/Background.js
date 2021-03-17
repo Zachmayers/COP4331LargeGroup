@@ -5,7 +5,7 @@ import './Style/Header.css';
 
 function Background() {
     return(
-      <Particles
+      <Particles 
           id="tsparticles"
           
           options={{

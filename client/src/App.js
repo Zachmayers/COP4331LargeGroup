@@ -4,6 +4,7 @@ import Particles from "react-tsparticles";
 import './App.css';
 import 'react-bootstrap';
 import Home from './components/pages/Home';
+import Banner from './components/pages/Banner'
 import NowPlaying from './components/pages/NowPlaying/NowPlaying'
 import Login from './components/pages/Login/Login'
 import Signup from './components/pages/Signup';
@@ -19,8 +20,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation>
-          </Navigation>
+        <Navigation />
         <div>
           <Main />
         </div>
@@ -50,6 +50,12 @@ function HomeNavbar() {
         </ul>
       </div>
     </nav>
+  );
+}
+
+function HomePage() {
+  return(
+      <Banner />
   );
 }
 

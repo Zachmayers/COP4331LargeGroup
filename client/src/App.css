@@ -20,5 +20,5 @@
 
   .navbar {
     position: fixed;
-    background-color: antiquewhite;
+    width: 100vw;
   }

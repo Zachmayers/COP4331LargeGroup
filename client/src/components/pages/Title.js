@@ -6,9 +6,11 @@ import logo from './Title-img-1.svg';
 function Title() { 
 
   return (
-      <div class="center">
+  
+      <div class="center"  >
         <img src={logo}/><br />
       </div>
+
   );
 }
 
