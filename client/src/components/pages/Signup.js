@@ -44,7 +44,6 @@ function Signup(props) {
                     <div class="container text-success">
                         <div class="row sm-4 md-4 lg-4">
                             <div class="col col-10 control-label ">
-                                
                                     <label>Username</label>
                                         <textarea name="Username" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
                                     <label>Password</label>
