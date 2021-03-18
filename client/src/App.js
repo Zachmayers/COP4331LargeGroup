@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
@@ -30,18 +31,41 @@ function App() {
 }
 
 function Navigation() {
+  const [navBackground, setNavBackground] = useState('navBarTransparent')
+
+  const navRef = React.useRef()
+  navRef.current = navBackground
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 10
+      if(show) {
+        setNavBackground('navBarSolid')
+      } else {
+        setNavBackground('navBarTransparent')
+      }
+    }  
+      document.addEventListener('scroll', handleScroll)
+      return () => {
+        document.removeEventListener('scroll', handleScroll)
+      }
+  },[])
+
+
   return(
-    <HomeNavbar />
+    <div className={navRef.current}>
+      <HomeNavbar></HomeNavbar>
+    </div>
+    
   );
 }
 
-
 function HomeNavbar() {
   return(
-    <nav className="navbar navbar-expand bg-transparent">
+    <nav className="navbar navbar-expand">
       <div className='container'>
         <ul className="navbar-nav mr-auto">
-        <a class="navbar-brand text-white" href="#">Listen In</a>
+        <a className="navbar-brand text-white" href="#">Listen In</a>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>

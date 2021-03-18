@@ -7,7 +7,7 @@ function Title() {
 
   return (
   
-      <div class="center"  >
+      <div className="center"  >
         <img src={logo}/><br />
       </div>
 

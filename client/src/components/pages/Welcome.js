@@ -7,9 +7,9 @@ class Welcome extends React.Component {
 
     render() {
         return (
-            <div class="center">
-                <h1>Welcome to ListenIn!</h1>
-                <a class="btn btn-outline-dark" href="#" role="button">Get Started</a>
+            <div className="center">
+                <h1>DISCOVER NEW MUSIC</h1>
+                <a className="btn btn-outline-dark" href="#" role="button">Get Started</a>
             </div>
         );
     }

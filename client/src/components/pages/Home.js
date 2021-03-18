@@ -12,13 +12,12 @@ function Home() {
 
   return (
     <div>
-      <Banner />
+     <Banner>
       <Title />
+    </Banner>
       <Player/>
-      <ListenIn style={{position: 'relative', zIndex:'1'}}>
-        </ListenIn>
-      <Background style={{position: 'absolute', zIndex:'-1'}}>
-      </Background>
+      <ListenIn/>
+      <Background />
     </div>
   );
 }

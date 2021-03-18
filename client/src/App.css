@@ -22,3 +22,10 @@
     position: fixed;
     width: 100vw;
   }
+
+  .navBarTransparent .navbar{
+    background-color: rgba(0, 129, 168, 0);
+  }
+  .navBarSolid .navbar{
+    background-color: rgba(36, 4, 66, 0.897);
+  }

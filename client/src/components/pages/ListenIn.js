@@ -6,7 +6,7 @@ function ListenIn() {
 
   return (
       <div>
-      <div class="center">
+      <div className="center">
         stay tuned      -
         <a href="https://github.com/Zachmayers/COP4331LargeGroup"> Checkout our github</a>
         <audio src='song.mp3'/>
