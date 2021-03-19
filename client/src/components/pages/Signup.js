@@ -32,18 +32,18 @@ function Signup(props) {
     
     return (
         <div>
-            <div class="container">
-                <div class="row xs-4 sm-4 md-4 lg-4  text-light">
-                    <div class="col col-10">
+            <div className="container">
+                <div className="row xs-4 sm-4 md-4 lg-4  text-light">
+                    <div className="col col-10">
                         <img src={logo} className="Login-logo" alt="logo" />
                             <p>Please create an account!</p>
                     </div>
                 </div>
                 <form onSumbit={handleSubmit}>
-                <div className="form-group">
-                    <div class="container text-success">
-                        <div class="row sm-4 md-4 lg-4">
-                            <div class="col col-10 control-label ">
+                <div className="form-group signup-form">
+                    <div className="container text-success">
+                        <div className="row sm-4 md-4 lg-4">
+                            <div className="col col-10 control-label ">
                                 
                                     <label>Username</label>
                                         <textarea name="Username" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
@@ -55,7 +55,7 @@ function Signup(props) {
                                         <textarea name="LastName" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
                                     <label>Email</label>
                                         <textarea name="Email" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <div class="row sm-4 md-4 lg-4 row-offset-sm-5">
+                                    <div className="row sm-4 md-4 lg-4 row-offset-sm-5 submit-btn">
                                         <div className="col col-offset-sm-4 btn-group">
                                             <input type="submit" value="Submit" className="btn btn-primary" />
                                             <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button>
@@ -66,10 +66,10 @@ function Signup(props) {
                         </div>
                     </div>
                 </form>
-          
+                
            
                 </div>
-        <Background />
+                <Background/>
         
         </div>
     )

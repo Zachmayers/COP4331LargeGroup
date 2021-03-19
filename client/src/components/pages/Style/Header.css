@@ -79,3 +79,20 @@
     border: 1px solid #8a8a8a;
   }
 
+  .signup-form{
+    margin-top: 20px;
+  }
+
+  .form-control{
+    width: 300px;
+  }
+
+  .submit-btn {
+    margin-top: 20px;
+    width: 330px;
+  }
+
+  .ReactModal__Content{
+    margin:auto;
+    background: rgb(39 8 69);
+  }
