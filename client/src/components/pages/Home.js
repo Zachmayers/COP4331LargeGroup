@@ -7,12 +7,14 @@ import Title from './Title.js';
 import ListenIn from './ListenIn.js';
 import Background from './Background';
 import Player from './Player';
+import Welcome1 from './Welcome1';
 
 function Home() { 
 
   return (
     <div>
-     <Banner/>
+      {/* <Welcome1 /> */}
+      <Banner />
       <Title />
       <Player/>
       <ListenIn/>
