@@ -118,7 +118,7 @@ class Login extends Component {
           )}
             
         </header>
-        <Background />
+        {/* <Background /> */}
             <ListenIn />
       </div>
     );

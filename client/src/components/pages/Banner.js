@@ -9,6 +9,7 @@ function Banner() {
 
     return (
         <div className="banner" >
+            {/* <Title /> */}
             <Welcome1 />
         </div>
     );

@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {Card, Button, Collapse} from 'react-bootstrap';
 import SignUp from './Signup';
 import Title from './Title.js';
-import logo from './Title-img-1.svg';
+import Login from './Login/Login';
 import './Style/Header.css';
 
 function Welcome1() {
     const [open, setOpen] = useState(false);
+    const [verticalOpen, setVerticalOpen] = useState(false);
+    
     return(
         <Card className="centerCard">
             <Card.Body>
@@ -28,13 +30,43 @@ function Welcome1() {
                 </Collapse>
                 <Collapse in={open}>
                     <div id="collapse-login">
-                        <SignUp />
+                        <Collapse in={!verticalOpen}>
+                            <div id="login-signup">
+                                <div>
+                                    <SignUp />
+                                </div>
+                                <div>
+                                    <Button variant="primary"
+                                            onClick={() => setVerticalOpen(!verticalOpen)}
+                                            aria-controls="login-signup"
+                                            aria-expanded={verticalOpen}>
+                                        Log In
+                                    </Button>{' '}
+                                </div>
+                            </div>
+                        </Collapse>
+                        <Collapse in={verticalOpen}>
+                            <div id="login-signup">
+                                <div>
+                                    <Login />
+                                </div>
+                                <div>
+                                    <Button variant="primary"
+                                            onClick={() => setVerticalOpen(!verticalOpen)}
+                                            aria-controls="login-signup"
+                                            aria-expanded={verticalOpen}>
+                                        Sign Up
+                                    </Button>{' '}
+                                </div>
+                            </div>
+                        </Collapse>
+                        
                         <Button variant="primary"
                                     onClick={() => setOpen(!open)}
                                     aria-controls="collapse-login"
                                     aria-expanded={open}>
-                                Close
-                            </Button>{' '}
+                            Close
+                        </Button>{' '}
                     </div>
                 </Collapse>
             </Card.Body>
