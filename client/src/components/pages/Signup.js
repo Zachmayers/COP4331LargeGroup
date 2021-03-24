@@ -69,7 +69,6 @@ function Signup(props) {
                 
            
                 </div>
-                <Background/>
         
         </div>
     )
