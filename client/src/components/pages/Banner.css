@@ -1,6 +1,8 @@
 .banner {
-    padding-top:200px;
     top:0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 700px;
     width: 100%;
     background-image: url("fondodark.jpg");
