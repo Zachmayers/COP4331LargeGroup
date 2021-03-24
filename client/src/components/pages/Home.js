@@ -8,13 +8,16 @@ import ListenIn from './ListenIn.js';
 import Background from './Background';
 import Player from './Player';
 
+
 function Home() { 
 
   return (
     <div>
      <Banner>
       <Title />
+      
     </Banner>
+
       <Player/>
       <ListenIn/>
       <Background />

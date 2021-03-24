@@ -1,66 +1,94 @@
 import React, { useState } from "react"; 
-import { post } from 'axios'; 
+import axios from 'axios'; 
 import Background from './Background';
 import './Style/Header.css';
 import logo from './PinkerLogo.png'
 
-function Signup(props) {
-    const initialState = { Username: '', Password: '', FirstName: '', LastName: '', Email: '' }
-    const [User, setSignup] = useState(initialState) 
-    
-    function handleChange(event) { 
-        setSignup({...User, [event.target.name]: event.target.value})
-    }
-    
-    function handleSubmit(event) { 
-        event.preventDefault();     
-        if(!User.title || !User.content ) return 
-        async function postSignup() {
-        try {
-            const response = await post('/api/Users', User); 
-            props.history.push(`/Users/${response.data._id}`);  
-        } catch(error) {
-            console.log('error', error);
-        }
-        }
-        postSignup();
-    }
-    
-    function handleCancel() {
-        props.history.push("/Users");
-    }
+function Signup()
+{
+
+    const storage = require('../tokenStorage.js');
+    const bp = require('./bp.js');
+
+   var Username;
+   var Password;
+   var Email;
+   var First;
+   var Last;
+
+   const [message,setMessage] = useState('');
+
+   const doSignup = async event => 
+   {
+       event.preventDefault();
+
+       var obj = {username:Username.value,password:Password.value, email:Email.value,first:First.value,last:Last.value};
+       var js = JSON.stringify(obj);
+
+       try
+       { 
+            // Axios code follows
+            var config = 
+            {
+                method: 'post',
+                url: bp.buildPath('api/Signup'),        // or api/addcard or api/searchcards
+                headers: 
+                {
+                    'Content-Type': 'application/json'
+                },
+                data: js
+            };
+
+            axios(config)
+            .then(function (response) 
+            {
+                var res = response.data;
+                if (res.error) 
+                {
+                    setMessage('User/Password combination incorrect');
+                }
+                else 
+                {
+                    storage.storeToken(res);
+                    window.location.href = '/Home';
+                }
+            })
+            .catch(function (error) 
+            {
+                setMessage(error);
+            });
+            
+       }
+       catch(e)
+       {
+           alert(e.toString());
+           return;
+       }    
+   };
     
     return (
         <div>
-            <div class="container">
-                <div class="row xs-4 sm-4 md-4 lg-4  text-light">
-                    <div class="col col-10">
+            <div className="container">
+                <div className="row xs-4 sm-4 md-4 lg-4  text-light">
+                    <div className="col col-10">
                         <img src={logo} className="Login-logo" alt="logo" />
                             <p>Please create an account!</p>
                     </div>
                 </div>
-                <form onSumbit={handleSubmit}>
+                <form onSubmit={doSignup}>
                 <div className="form-group">
-                    <div class="container text-success">
-                        <div class="row sm-4 md-4 lg-4">
-                            <div class="col col-10 control-label ">
-                                
-                                    <label>Username</label>
-                                        <textarea name="Username" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <label>Password</label>
-                                        <textarea name="Password" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <label>First</label>
-                                        <textarea name="FirstName" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <label>Last</label>
-                                        <textarea name="LastName" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <label>Email</label>
-                                        <textarea name="Email" rows="1" value={setSignup.content} onChange={handleChange} className="form-control" />
-                                    <div class="row sm-4 md-4 lg-4 row-offset-sm-5">
-                                        <div className="col col-offset-sm-4 btn-group">
-                                            <input type="submit" value="Submit" className="btn btn-primary" />
-                                            <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button>
-                                        </div>
-                                    </div>
+                    <div className="container text-success">
+                        <div className="row sm-4 md-4 lg-4">
+                            <div className="col col-10 control-label ">
+                                <span id="inner-title">Please log in</span><br />
+                                <input type="text" id="Username" placeholder="Username" ref={(c) => Username =c} /><br />
+                                <input type="text" id="Password" placeholder="password" ref={(c) => Password =c} /><br />
+                                <input type="text" id="Email" placeholder="Email" ref={(c) => Email =c} /><br />
+                                <input type="text" id="First" placeholder="First" ref={(c) => First =c} /><br />
+                                <input type="text" id="Last" placeholder="Last" ref={(c) => Last =c} /><br />
+                                <input type="submit" id="loginButton" class="buttons" 
+                                    onClick={doSignup} />
+                                <span id="loginResult">{message}</span>
                                 </div>  
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Welcome from './Welcome.js'
 import './Banner.css'
-import fondo from './fondo.jpg';
+// import fondo from './fondo.jpg';
 
 function Banner() {
     return (

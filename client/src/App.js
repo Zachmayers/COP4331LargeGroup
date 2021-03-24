@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+// import {makeStyles} from '@material-ui/core/styles';
 import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
@@ -16,6 +16,7 @@ import Detail from './components/pages/NowPlaying/Detail';
 import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 import Example from './components/pages/Example';
+
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function HomeNavbar() {
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Signup">Create an account</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Example">Example</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Glitch">Glitch</NavLink></li>
         </ul>
       </div>
     </nav>
@@ -92,6 +94,7 @@ function Main() {
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Example" component={Example} />
+
     </Switch>
 
   );
