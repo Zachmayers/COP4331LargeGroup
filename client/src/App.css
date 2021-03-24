@@ -21,6 +21,7 @@
   .navbar {
     position: fixed;
     width: 100vw;
+    font-size: 8px;
   }
 
   .navBarTransparent .navbar{

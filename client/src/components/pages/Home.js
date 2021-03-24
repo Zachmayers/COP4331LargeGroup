@@ -13,7 +13,7 @@ function Home() {
   return (
     <div>
      <Banner/>
-      <Title />
+
       <Player/>
       <ListenIn/>
       <Background />

@@ -11,7 +11,7 @@ function Background() {
           options={{
             background: {
               color: {
-                value: "#31406e",
+                value: "#390a36",
               },
             },
             fpsLimit: 60,
@@ -46,7 +46,7 @@ function Background() {
             },
             particles: {
               color: {
-                value: "#ffffff",
+                value: "#390a36",
               },
               links: {
                 color: "#ffffff",
@@ -63,7 +63,7 @@ function Background() {
                 enable: true,
                 outMode: "bounce",
                 random: false,
-                speed: 6,
+                speed: 2,
                 straight: false,
               },
               number: {
