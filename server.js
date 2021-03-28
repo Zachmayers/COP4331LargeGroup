@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 3001;
 require('dotenv').config();
 
 const app = express();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(require('./routes/index'))
 app.use('/api', router);
 app.use('/signup', router);
 //allows the use of the user schema for sign up.
