@@ -3,6 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 const Article = require('../models/article');
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+const {JWT_SECRET} = require('../keys')
+const requireLogin = require('../middleware/requireLogin')
 
 router.get('/articles', function(req, res) {
     Article.find(function(err, articles) {
@@ -54,6 +57,14 @@ router.delete('/articles/:id', function(req, res) {
         }
     });
 })
+
+
+router.get('/protected',requireLogin,(req,res)=>{
+    res.send("hello user")
+})
+
+
+
 //will read in a request from front end to make a user and store their data in the database
 router.post('/Signup',(req,res)=>{
     const {Username, Password, Email, FirstName, LastName} = req.body
@@ -81,6 +92,7 @@ router.post('/Signup',(req,res)=>{
             console.log("about to save")
             Users.save()
             .then(user=>{
+                console.log("saved successfully")
                res.send({message:"saved successfully"})
                console.log(user.id)
            })
@@ -92,21 +104,26 @@ router.post('/Signup',(req,res)=>{
 })
 
 router.post('/Login',(req,res)=>{
-    const {Username,password} = req.body
-    if(!Username || !password){
+    const {Username,Password} = req.body
+    if(!Username || !Password){
+        console.log("something is missing")
         return res.status(442).json({error:"Please add both Email and Password"})
     }
     User.findOne({Username:Username})
     .then(savedUser=>{
         if(!savedUser){
+            console.log("username is scuffed")
             return res.status(442).json({error:"Please add both Email and Password"})
         }
-        bcrypt.compare(Password,savedUser.password)
+        bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
             if(doMatch){
-                res.json({message:"successfully signed in"})
+                //res.json({message:"successfully signed in"})
+                const token = jwt.sign({_id:savedUser._id},JWT_SECRET)
+                res.json({token})
             }
             else{
+                console.log("pass is scuffed")
                 return res.status(442).json({error:"Please add both Email and Password"})
             }
         })
