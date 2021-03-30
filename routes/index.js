@@ -5,7 +5,11 @@ const Article = require('../models/article');
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = require('../keys')
+const {SENDGRID_KEY} = require('../keys')
 const requireLogin = require('../middleware/requireLogin')
+const sgMail = require('@sendgrid/mail')
+
+
 
 router.get('/articles', function(req, res) {
     Article.find(function(err, articles) {
@@ -84,7 +88,8 @@ router.post('/Signup',(req,res)=>{
                 Password:hashedPassword,
                 Email,
                 FirstName,
-                LastName
+                LastName,
+                temporarytoken: jwt.sign(Username, JWT_SECRET)
             })
             //Users.save(function(err,newUser){
             //    console.log(newUser.id);
@@ -93,11 +98,31 @@ router.post('/Signup',(req,res)=>{
             Users.save()
             .then(user=>{
                 console.log("saved successfully")
-               res.send({message:"saved successfully"})
-               console.log(user.id)
-           })
-           .catch(err=>{
-            	console.log(err)
+                //res.send({message:"saved successfully"})
+                console.log(user.id)
+                sgMail.setApiKey(SENDGRID_KEY)
+                const msg = {
+                    to: user.Email, // Change to your recipient
+                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    subject: 'Sending with SendGrid is Fun',
+                    text: 'and easy to do anywhere, even with Node.js',
+                    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                }
+                sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+                res.json({
+                    succeed: true,
+                    message: "User has been successfully activated"
+                });
+            })
+            .catch(err=>{
+                console.log(err)
             })
         })
     })
