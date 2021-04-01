@@ -67,8 +67,6 @@ router.get('/protected',requireLogin,(req,res)=>{
     res.send("hello user")
 })
 
-
-
 //will read in a request from front end to make a user and store their data in the database
 router.post('/Signup',(req,res)=>{
     console.log("signup")
@@ -102,7 +100,7 @@ router.post('/Signup',(req,res)=>{
                 //res.send({message:"saved successfully"})
                 console.log(user.id)
                 sgMail.setApiKey(SENDGRID_KEY)
-                const hrefLink = "http://localhost:3000/api/users/verify/" + Users.temporarytoken;
+                const hrefLink = "http://localhost:3000/verify/" + Users.temporarytoken;
                 const msg = {
                     to: user.Email, // Change to your recipient
                     from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
@@ -111,8 +109,7 @@ router.post('/Signup',(req,res)=>{
                     //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
                     html: `Hello<strong> ${Users.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account or don't I am not your mom</a>`,
                 }
-                sgMail
-                .send(msg)
+                sgMail.send(msg)
                 .then(() => {
                     console.log('Email sent')
                 })
@@ -165,13 +162,13 @@ router.post('/Login',(req,res)=>{
 
 // Route to activate the user's account
 router.put('/verify/:token', (req, res) => {
-    console.log("putting")
+    console.log("putting");
     User.findOne({ temporarytoken: req.params.token }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
         const token = req.params.token; // Save the token from URL for verification
         console.log("the token is", token);
         // Function to verify the user's token
-        jwt.verify(token, keys.secretOrKey, (err, decoded) => {
+        jwt.verify(token, JWT_SECRET, (err, decoded) => {
             if (err) {
                 res.json({ success: false, message: "Activation link has expired." }); // Token is expired
             } else if (!user) {
@@ -185,30 +182,28 @@ router.put('/verify/:token', (req, res) => {
                         console.log(err); // If unable to save user, log error info to console/terminal
                     } else {
                         // If save succeeds, create e-mail object
-                        const emailActivate = {
-                            from: "Localhost Staff, staff@localhost.com",
-                            to: user.email,
-                            subject: "Localhost Account Activated",
-                            text: `Hello ${
-                                user.name
-                            }, Your account has been successfully activated!`,
-                            html: `Hello<strong> ${
-                                user.name
-                            }</strong>,<br><br>Your account has been successfully activated!`
-                        };
+                        sgMail.setApiKey(SENDGRID_KEY)
+                        console.log("creating email");
+                        const msg = {
+                            to: user.Email, // Change to your recipient
+                            from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                            subject: 'Sending with SendGrid is Fun',
+                            text: `Hello ${user.FirstName}, Your account has been successfully activated!`,
+                            //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
+                            html: `Hello<strong> ${user.FirstName},</strong>,<br><br>Your account has been successfully activated!`,
+                        }
                         // Send e-mail object to user
-                        client.sendMail(emailActivate, function(err, info) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log(
-                                    "Activiation Message Confirmation -  : " + info.response
-                                );
-                            }
-                        });
+                        console.log("sending email");
+                        sgMail.send(msg)
+                        .then(() => {
+                            console.log('Email sent')
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                        })
                         res.json({
                             succeed: true,
-                            message: "User has been successfully activated"
+                            message: "User has been successfully activated9875343"
                         });
                     }
                 });
