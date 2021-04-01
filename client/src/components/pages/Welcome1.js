@@ -3,6 +3,8 @@ import {Card, Button, Collapse} from 'react-bootstrap';
 import SignUp from './Signup';
 import Title from './Title.js';
 import Login from './Login/Login';
+import LoginComp from './LoginComp';
+import SignupComp from './SignupComp';
 import './Style/Header.css';
 
 function Welcome1() {
@@ -33,7 +35,7 @@ function Welcome1() {
                         <Collapse in={!verticalOpen}>
                             <div id="login-signup">
                                 <div>
-                                    <SignUp />
+                                    <LoginComp />
                                 </div>
                                 <div>
                                     <Button variant="primary"
@@ -48,7 +50,7 @@ function Welcome1() {
                         <Collapse in={verticalOpen}>
                             <div id="login-signup">
                                 <div>
-                                    <Login />
+                                    <SignupComp />
                                 </div>
                                 <div>
                                     <Button variant="primary"
