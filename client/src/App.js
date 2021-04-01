@@ -16,86 +16,89 @@ import Detail from './components/pages/NowPlaying/Detail';
 import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 import Example from './components/pages/Example';
+import Token from "./components/auth/Token";
 
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
+    return (
+        <div className="App">
+        <Router>
         <Navigation />
         <div>
-          <Main />
+        <Main />
         </div>
-      </Router>
-    </div>
-  );
+        </Router>
+        </div>
+    );
 }
 
 function Navigation() {
-  const [navBackground, setNavBackground] = useState('navBarTransparent')
+    const [navBackground, setNavBackground] = useState('navBarTransparent')
 
-  const navRef = React.useRef()
-  navRef.current = navBackground
+    const navRef = React.useRef()
+    navRef.current = navBackground
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const show = window.scrollY > 10
-      if(show) {
-        setNavBackground('navBarSolid')
-      } else {
-        setNavBackground('navBarTransparent')
-      }
-    }  
-      document.addEventListener('scroll', handleScroll)
-      return () => {
-        document.removeEventListener('scroll', handleScroll)
-      }
-  },[])
+    useEffect(() => {
+        const handleScroll = () => {
+            const show = window.scrollY > 10
+            if(show) {
+                setNavBackground('navBarSolid')
+            } else {
+                setNavBackground('navBarTransparent')
+            }
+        }
+        document.addEventListener('scroll', handleScroll)
+        return () => {
+            document.removeEventListener('scroll', handleScroll)
+        }
+    },[])
 
 
-  return(
-    <div className={navRef.current}>
-      <HomeNavbar></HomeNavbar>
-    </div>
-    
-  );
+    return(
+        <div className={navRef.current}>
+        <HomeNavbar></HomeNavbar>
+        </div>
+
+    );
 }
 
 function HomeNavbar() {
-  return(
-    <nav className="navbar navbar-expand">
-      <div className='container'>
+    return(
+        <nav className="navbar navbar-expand">
+        <div className='container'>
         <ul className="navbar-nav mr-auto">
         <a className="navbar-brand text-white" href="#">Listen In</a>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Signup">Create an account</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Example">Example</NavLink></li>
+        <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
+        <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
+        <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
+        <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Signup">Create an account</NavLink></li>
+        <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Example">Example</NavLink></li>
         </ul>
-      </div>
-    </nav>
-  );
+        </div>
+        </nav>
+    );
 }
 
 function HomePage() {
-  return(
-      <Banner />
-  );
+    return(
+        <Banner />
+    );
 }
 
+
 function Main() {
-  return(
+    return(
 
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/NowPlaying" component={NowPlaying} />
-      <Route exact path="/Signup" component={Signup} />
-      <Route exact path="/Login" component={Login} />
-      <Route exact path="/Example" component={Example} />
-    </Switch>
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/NowPlaying" component={NowPlaying} />
+        <Route exact path="/Signup" component={Signup} />
+        <Route exact path="/Login" component={Login} />
+        <Route exact path="/Example" component={Example} />
+        <Route path="/verify/:token" component={Token} />
+        </Switch>
 
-  );
+    );
 }
 
 
