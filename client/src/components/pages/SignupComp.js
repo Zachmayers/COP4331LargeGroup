@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import { post } from 'axios';
 // import { Container, Grid } from "@material-ui/core"
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import './Style/Header.css';
 
 function Signup(props) {
@@ -32,7 +32,36 @@ function Signup(props) {
     
     return (
         <Container>
-            <form onSubmit={handleSubmit}>
+            <Form>
+                <div className="welcomeText">
+                    Please Sign Up
+                </div>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formFirstName">
+                        <Form.Control placeholder="First Name" />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formLastName">
+                        <Form.Control placeholder="Last Name" />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formUsername">
+                        <Form.Control placeholder="Username" />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formEmail">
+                        <Form.Control type="email" placeholder="Email" />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formPassword">
+                        <Form.Control type="password" placeholder="Password" />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formConfirmPassword">
+                        <Form.Control type="password" placeholder="Confirm Password" />
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+            {/*<form onSubmit={handleSubmit}>
                 <div className="form-group signup-form">
                     <p>Please Sign Up</p>
                     <Row>
@@ -68,9 +97,9 @@ function Signup(props) {
                     <div className="btn-group">
                         <input type="submit" value="Submit" className="btn btn-primary" />
                         {/* <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button> */}
-                    </div>
+                    {/* </div>
                 </div>
-            </form>
+            </form> */}
         </Container>
     )
 }
