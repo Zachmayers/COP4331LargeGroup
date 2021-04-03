@@ -18,6 +18,11 @@
       text-align: center;
       width: 50%;
   }
+
+  .errorMessage {
+    margin: auto;
+    width: 300px;
+  }
   .welcomeText {
     color: white;
     font-size: xx-large;

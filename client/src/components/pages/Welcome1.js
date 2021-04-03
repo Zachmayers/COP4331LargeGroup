@@ -42,7 +42,7 @@ function Welcome1() {
                                             onClick={() => setVerticalOpen(!verticalOpen)}
                                             aria-controls="login-signup"
                                             aria-expanded={verticalOpen}>
-                                        Log In
+                                        Sign Up
                                     </Button>{' '}
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ function Welcome1() {
                                             onClick={() => setVerticalOpen(!verticalOpen)}
                                             aria-controls="login-signup"
                                             aria-expanded={verticalOpen}>
-                                        Sign Up
+                                        Log In
                                     </Button>{' '}
                                 </div>
                             </div>

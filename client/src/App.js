@@ -16,7 +16,7 @@ import Detail from './components/pages/NowPlaying/Detail';
 import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 import Example from './components/pages/Example';
-
+import Token from './components/auth/Token';
 
 function App() {
   return (
@@ -93,6 +93,7 @@ function Main() {
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Example" component={Example} />
+      <Route path="/verify:token" component={Token} />
     </Switch>
 
   );

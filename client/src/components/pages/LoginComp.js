@@ -42,6 +42,10 @@ function LoginComp(props) {
                 <Form.Group as={Col} controlId="formPassword">
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
+                <div>
+                        <input type="submit" value="Submit" className="btn btn-primary" />
+                        {/* <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button> */}
+                </div>
             </Form>
             {/* <form onSubmit={handleSubmit}>
                 <div className="form-group login-form">
