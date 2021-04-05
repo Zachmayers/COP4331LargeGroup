@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import './Style/Header.css';
 import './Banner.css';
+import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 
 export default function TopTracks(props) {
     const sampleJSON = {
@@ -1586,48 +1586,12 @@ export default function TopTracks(props) {
     const names = []
     const images = []
     const cards = []
-    let newJSON = {}
-    const access_token = ''
 
-    // axios.defaults.headers.common[
-    //   'Authorization'
-    // ] = `Bearer ${access_token}`;
-
-    // axios.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50')
-    //       .then((response) => {
-    //         response.data.items.forEach((item) => {
-    //           names.push(item.name)
-    //           cards.push(
-    //             <div>
-    //                 <Card className="artist-card">
-    //                   <Card.Img variant="top" src={item.images[0].url} />
-    //                   <Card.Body>
-    //                     {item.name}
-    //                   </Card.Body>
-    //                 </Card>
-    //             </div>
-    //           )
-    //         })
-    //         console.log('HERE', names)
-    //         console.log('It kinda worked', response.status)
-    //       })
-    //       .catch(error => {
-    //         console.error('There was an error!', error);
-    //     });
-    
-    // items.forEach((item) => {
-      
-    //   cards.push(
-    //     <div>
-    //         <Card className="artist-card">
-    //           <Card.Img variant="top" src={item.images[0].url} />
-    //           <Card.Body>
-    //               {item.name}
-    //           </Card.Body>
-    //         </Card>
-    //     </div>
-    //   )
-    // })
+    const components = {
+      "LongTerm": <LongTerm/>,
+      "MediumTerm": <MediumTerm/>,
+      "ShortTerm": <ShortTerm/>,
+  }
 
     sampleJSON.items.forEach((item) => {
       names.push(<div>{item.name}</div>)
@@ -1647,16 +1611,42 @@ export default function TopTracks(props) {
     return (
       <div className="background-banner">
                 <table className="artists-table">
+                  <tr className="artist-title"><h1 className="text-white">TOP ARTISTS</h1></tr>
+                  <tr>
                     <td className="div-titles">
-                        <tr height="200px"><p className="vertical-title">All Time</p></tr>
-                        <tr height="200px"><p className="vertical-title">This Month</p></tr>
-                        <tr height="200px"><p className="vertical-title">Last 6 Months</p></tr>
+                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">All Time</NavLink></tr>
+                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">This Month</NavLink></tr>
+                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">Last 6 Months</NavLink></tr>
                     </td>
                     <td className="div-top-results">
-                      <h1 className="navbar-brand text-white">Top Artists</h1>
                       {cards}
                     </td>
+                  </tr>
                 </table>
       </div>
     );
+}
+
+function LongTerm(){
+
+    return(
+      <div></div>
+    );
+   
+}
+
+function MediumTerm(){
+
+  return(
+    <div></div>
+  );
+ 
+}
+
+function ShortTerm(){
+
+  return(
+    <div></div>
+  );
+ 
 }

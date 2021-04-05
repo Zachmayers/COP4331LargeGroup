@@ -1,12 +1,33 @@
-.center{
-    text-align: center;
-    display: block;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    width: 100%;
-    color: #ffffff;
+  .center{
+      text-align: center;
+      display: block;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      width: 100%;
+      color: #ffffff;
+    }
+
+  .centerCard{
+      align-items: center;
+      background-color: transparent;
+      border: 0;
+      color: #ffffff;
+      justify-content: center;
+      margin: auto;
+      text-align: center;
+      width: 50%;
   }
+
+  .errorMessage {
+    margin: auto;
+    width: 300px;
+  }
+  .welcomeText {
+    color: white;
+    font-size: xx-large;
+  }
+
   .titleText {
     color: ivory;
   }
@@ -80,6 +101,10 @@
   }
 
   .signup-form{
+    margin-top: 20px;
+  }
+
+  .login-form{
     margin-top: 20px;
   }
 
