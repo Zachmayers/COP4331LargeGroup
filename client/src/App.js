@@ -15,8 +15,16 @@ import Listbox from './components/pages/NowPlaying/Listbox';
 import Detail from './components/pages/NowPlaying/Detail';
 import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
-import Example from './components/pages/Example';
+import TopArtists from './components/pages/TopArtists';
+import TopTracks from './components/pages/TopTracks';
 import Token from './components/auth/Token';
+import { SpotifyApiContext, SpotifyApiAxiosContext } from 'react-spotify-api';
+
+<SpotifyApiAxiosContext.Provider value={axios}>
+  <SpotifyApiContext.Provider >
+    <App />
+  </SpotifyApiContext.Provider>
+</SpotifyApiAxiosContext.Provider>
 
 function App() {
   return (
@@ -69,9 +77,11 @@ function HomeNavbar() {
         <a className="navbar-brand text-white" href="#">Listen In</a>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopTracks">Top Tracks</NavLink></li>
+        </ul>
+        <ul className="navbar-nav ml-auto">
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Signup">Create an account</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Example">Example</NavLink></li>
         </ul>
       </div>
     </nav>
@@ -92,7 +102,7 @@ function Main() {
       <Route exact path="/NowPlaying" component={NowPlaying} />
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />
-      <Route exact path="/Example" component={Example} />
+      <Route exact path="/TopTracks" component={TopTracks} />
       <Route path="/verify:token" component={Token} />
     </Switch>
 
