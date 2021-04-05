@@ -7,13 +7,13 @@ import Title from './Title.js';
 import ListenIn from './ListenIn.js';
 import Background from './Background';
 import Player from './Player';
+import TopTracks from './TopTracks';
 
 function Home() { 
 
   return (
     <div>
      <Banner/>
-
       <Player/>
       <ListenIn/>
       <Background />

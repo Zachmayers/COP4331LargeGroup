@@ -7,3 +7,51 @@
     z-index: -10;
 }
 
+.background-banner{
+    height: 100vh;
+    padding-top: 10vh; 
+    background-image: url("fondodark.jpg");
+    overflow-y: hidden;
+}
+
+.option{
+    width:150px;
+    margin: 50px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height:140px;
+    background-color: white;
+}
+
+.div-top-results{
+    float: right;
+    margin-right:0%;
+    height: 88vh;
+    width: 90vw;
+    background-color: rgba(226, 226, 226, 0.05);
+  overflow-y: auto;
+}
+
+
+.div-titles{
+    float: left;
+    margin-left: 3vw;
+    height: 88vh;
+    width: 50px;
+    background-color: rgba(226, 226, 226, 0.9);
+}
+
+.vertical-title{
+    transform: rotate(-90deg);
+}
+
+.artist-card{
+    height: 230px;
+    margin: 20px;
+    float:left;
+    width:200px;
+}
+
+.artists-table{
+    float: right;
+}

@@ -16,7 +16,7 @@ import Detail from './components/pages/NowPlaying/Detail';
 import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 import Example from './components/pages/Example';
-
+import TopTracks from './components/pages/TopTracks';
 
 function App() {
   return (
@@ -88,16 +88,15 @@ function Main() {
   return(
 
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={TopTracks} />
       <Route exact path="/NowPlaying" component={NowPlaying} />
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Example" component={Example} />
+      {/* <Route path="/verify:token" component={Token} /> */}
     </Switch>
 
   );
 }
-
-
 
 export default App;
