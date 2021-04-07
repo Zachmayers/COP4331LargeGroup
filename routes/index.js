@@ -117,6 +117,7 @@ router.post('/Signup',(req,res)=>{
                     console.error(error)
                 })
                 res.json({
+                    //ID: user.id,
                     succeed: true,
                     message: "User has been successfully activated"
                 });
