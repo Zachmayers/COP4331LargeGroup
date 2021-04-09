@@ -6,7 +6,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = require('../keys')
 const {SENDGRID_KEY} = require('../keys')
-const requireLogin = require('../middleware/requireLogin')
+const auth = require('../middleware/auth')
 const sgMail = require('@sendgrid/mail')
 
 
@@ -63,11 +63,13 @@ router.delete('/articles/:id', function(req, res) {
 })
 
 
-router.get('/protected',requireLogin,(req,res)=>{
+router.get('/protected',auth,(req,res)=>{
     res.send("hello user")
 })
 
-//will read in a request from front end to make a user and store their data in the database
+// @route POST /Signup
+// @desc Signup a new user
+// @res not set in stone. Currently: {succeed, msg}
 router.post('/Signup',(req,res)=>{
     console.log("signup")
     const {Username, Password, Email, FirstName, LastName} = req.body
@@ -97,7 +99,7 @@ router.post('/Signup',(req,res)=>{
             Users.save()
             .then(user=>{
                 console.log("saved successfully")
-                //res.send({message:"saved successfully"})
+                //res.send({msg:"saved successfully"})
                 console.log(user.id)
                 sgMail.setApiKey(SENDGRID_KEY)
                 const hrefLink = "http://localhost:3000/verify/" + Users.temporarytoken;
@@ -119,7 +121,7 @@ router.post('/Signup',(req,res)=>{
                 res.json({
                     //ID: user.id,
                     succeed: true,
-                    message: "User has been successfully activated"
+                    msg: "User has been successfully activated"
                 });
             })
             .catch(err=>{
@@ -129,6 +131,9 @@ router.post('/Signup',(req,res)=>{
     })
 })
 
+// @route POST /login
+// @desc Login an existing user
+// @res {token, user{id,name,email}}
 router.post('/Login',(req,res)=>{
     console.log("login")
     const {Username,Password} = req.body
@@ -145,9 +150,23 @@ router.post('/Login',(req,res)=>{
         bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
             if(doMatch){
-                //res.json({message:"successfully signed in"})
-                const token = jwt.sign({_id:savedUser._id},JWT_SECRET)
-                res.json({token})
+                //res.json({msg:"successfully signed in"})
+                const token = jwt.sign(
+                    {_id:savedUser._id},
+                    JWT_SECRET,
+                    { expiresIn: 3600 },
+                    (err, token) => {
+                        if(err) throw err;
+                        res.json({
+                            token,
+                            user: {
+                                id: savedUser._id,
+                                name: savedUser.FirstName,
+                                email: savedUser.Email
+                            }
+                        })
+                    }
+                )
             }
             else{
                 console.log("pass is scuffed")
@@ -171,9 +190,9 @@ router.put('/verify/:token', (req, res) => {
         // Function to verify the user's token
         jwt.verify(token, JWT_SECRET, (err, decoded) => {
             if (err) {
-                res.json({ success: false, message: "Activation link has expired." }); // Token is expired
+                res.json({ success: false, msg: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                res.json({ success: false, message: "Activation link has expired." }); // Token may be valid but does not match any user in the database
+                res.json({ success: false, msg: "Activation link has expired." }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
@@ -204,7 +223,7 @@ router.put('/verify/:token', (req, res) => {
                         })
                         res.json({
                             succeed: true,
-                            message: "User has been successfully activated9875343"
+                            msg: "User has been successfully activated9875343"
                         });
                     }
                 });
