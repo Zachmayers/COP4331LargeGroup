@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs')
 const Article = require('../models/article');
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET} = require('../keys')
-const {SENDGRID_KEY} = require('../keys')
+//const {JWT_SECRET} = require('../keys')
+//const {SENDGRID_KEY} = require('../keys')
 const auth = require('../middleware/auth')
 const sgMail = require('@sendgrid/mail')
 
@@ -90,7 +90,7 @@ router.post('/Signup',(req,res)=>{
                 Email,
                 FirstName,
                 LastName,
-                temporarytoken: jwt.sign(Username, JWT_SECRET)
+                temporarytoken: jwt.sign(Username, process.env.JWT_SECRET)
             })
             //Users.save(function(err,newUser){
             //    console.log(newUser.id);
@@ -101,7 +101,7 @@ router.post('/Signup',(req,res)=>{
                 console.log("saved successfully")
                 //res.send({msg:"saved successfully"})
                 console.log(user.id)
-                sgMail.setApiKey(SENDGRID_KEY)
+                sgMail.setApiKey(process.env.SENDGRID_KEY)
                 const hrefLink = "http://localhost:3000/verify/" + Users.temporarytoken;
                 const msg = {
                     to: user.Email, // Change to your recipient
@@ -147,13 +147,14 @@ router.post('/Login',(req,res)=>{
             console.log("username is scuffed")
             return res.status(442).json({error:"Please add both Email and Password"})
         }
+         //console.log(Password + "  saved   " + savedUser.Password)
         bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
             if(doMatch){
                 //res.json({msg:"successfully signed in"})
                 const token = jwt.sign(
                     {_id:savedUser._id},
-                    JWT_SECRET,
+                    process.env.JWT_SECRET,
                     { expiresIn: 3600 },
                     (err, token) => {
                         if(err) throw err;
@@ -188,7 +189,7 @@ router.put('/verify/:token', (req, res) => {
         const token = req.params.token; // Save the token from URL for verification
         console.log("the token is", token);
         // Function to verify the user's token
-        jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 res.json({ success: false, msg: "Activation link has expired." }); // Token is expired
             } else if (!user) {
@@ -202,7 +203,7 @@ router.put('/verify/:token', (req, res) => {
                         console.log(err); // If unable to save user, log error info to console/terminal
                     } else {
                         // If save succeeds, create e-mail object
-                        sgMail.setApiKey(SENDGRID_KEY)
+                        sgMail.setApiKey(process.env.SENDGRID_KEY)
                         console.log("creating email");
                         const msg = {
                             to: user.Email, // Change to your recipient
