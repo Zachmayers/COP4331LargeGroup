@@ -2,7 +2,7 @@ const express  = require('express')
 const mongoose = require('mongoose');
 const router = require('./routes/index');
 const path = require('path');
-const {MONGOURI} = require('./keys')
+//const {MONGOURI} = require('./keys')
 const PORT = process.env.PORT || 3001;
 require('dotenv').config();
 
@@ -16,8 +16,8 @@ app.use('/signup', router);
 require('./models/user')
 mongoose.model("User")
 
-mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to the Database.');
 });
