@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Web app built with Node.js, Express, MongoDB, and React",
   "main": "server.js",
+  "homepage": "https://listenin.us",
   "engines": {
     "node": "15.x",
     "npm": "7.x"
@@ -40,7 +41,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm run start\"",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build "
+    "heroku-postbuild": "cd client && npm install && npm run build "
    
   },
   "keywords": [],
