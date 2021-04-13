@@ -4,7 +4,6 @@ import { Card } from 'react-bootstrap';
 import localStorage from 'local-storage';
 import './Style/Header.css';
 import './Banner.css';
-import localStorage from 'local-storage'
 
 export default function TopTracks(props) {
   const access_token = localStorage.get("userToken")
