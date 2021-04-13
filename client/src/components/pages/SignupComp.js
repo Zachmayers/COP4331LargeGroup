@@ -37,7 +37,15 @@ function Signup(props) {
     return (
         <Formik
             validationSchema={SignupSchema}
-            onSubmit={console.log}
+            onSubmit={(values, actions) => {
+                post(`http://localhost:3001/signup${JSON.stringify(values, null, 2)}`)
+                .then((response) => {
+                    console.log(response)
+                    console.log(response.data)
+                    console.log(response.status)
+                })
+              }}
+       
             initialValues={{
                 firstName: '',
                 lastName: '',
