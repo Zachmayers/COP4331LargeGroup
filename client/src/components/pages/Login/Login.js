@@ -8,6 +8,7 @@ import "./Login.css";
 import ListenIn from "../ListenIn";
 import Title from "../Title";
 import Background from "../Background";
+import localStorage from 'local-storage'
 
 class Login extends Component {
   constructor() {
@@ -34,6 +35,7 @@ class Login extends Component {
   componentDidMount() {
     // Set token
     let _token = hash.access_token;
+    localStorage.set("userToken", _token)
 
     if (_token) {
       // Set token
