@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const router = require('./routes/index');
 const path = require('path');
 //const {MONGOURI} = require('./keys')
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const MONGOURI = "mongodb+srv://Server2:2NtM2Q58wQ0K19Rw@largeproject.grhmk.mongodb.net/LargeProject?retryWrites=true&w=majority";
 require('dotenv').config();
 
