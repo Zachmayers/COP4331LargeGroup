@@ -147,7 +147,7 @@ router.post('/Login',(req,res)=>{
             console.log("username is scuffed")
             return res.status(442).json({error:"Please add both Email and Password"})
         }
-         //console.log(Password + "  saved   " + savedUser.Password)
+        //console.log(Password + "  saved   " + savedUser.Password)
         bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
             if(doMatch){
@@ -181,7 +181,8 @@ router.post('/Login',(req,res)=>{
 })
 
 
-// Route to activate the user's account
+// @route PUT /verify/{JWT}
+// @desc activate the user's account
 router.put('/verify/:token', (req, res) => {
     console.log("putting");
     User.findOne({ temporarytoken: req.params.token }, (err, user) => {
@@ -191,9 +192,10 @@ router.put('/verify/:token', (req, res) => {
         // Function to verify the user's token
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
+                console.log(err);
                 res.json({ success: false, msg: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                res.json({ success: false, msg: "Activation link has expired." }); // Token may be valid but does not match any user in the database
+                res.json({ success: false, msg: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
@@ -232,6 +234,85 @@ router.put('/verify/:token', (req, res) => {
         });
     });
 });
+
+
+// @route POST /resetpassword
+// @desc when called it will take users email and send them a link to reset password
+router.post('/resetpassword', (req, res) => {
+    console.log("preping reset");
+    const {Email} = req.body
+    if(!Email){
+        console.log("something is missing")
+        return res.status(442).json({error:"Please add Email"})
+    }
+    User.findOne({ Email: Email }, (err, user) => {
+        console.log(user);
+        if (err) throw err; // Throw error if no valid user
+        if(!user){
+            return res.status(422).json({error:"User dont exists with that email"});
+        }
+        console.log("signing token");
+        const newToken = jwt.sign(Email,process.env.JWT_SECRET);
+        user.temporarytoken = newToken;
+        console.log(user.temporary);
+        console.log(user);
+        user.save(err => {
+            if (err) {
+                console.log(err); // If unable to save user, log error info to console/terminal
+            } else {
+                // If save succeeds, create e-mail object
+                sgMail.setApiKey(process.env.SENDGRID_KEY)
+                console.log("creating email");
+                const hrefLink = "http://localhost:3000/reset/" + user.temporarytoken;
+                const msg = {
+                    to: Email, // Change to your recipient
+                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    subject: 'Listenin.us Reset Password',
+                    text: `Hello ${user.FirstName}, Click Here to Reset your Password`,
+                    html: `Hello<strong> ${user.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Reset your Password</a>`,
+                }
+                // Send e-mail object to user
+                console.log("sending email");
+                sgMail.send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+                res.json({
+                    succeed: true,
+                    msg: "User has been successfully requested reset"
+                });
+            }
+        });
+    });
+})
+
+
+// @route POST /newpassword
+// @desc takes new pass and token and resets the password.
+router.post('/newpassword', (req,res) => {
+    const newPassword = req.body.Password
+    console.log(newPassword + "this is new password")
+    const resetToken = req.body.Token
+    User.findOne({temporarytoken:resetToken})
+    .then(user=>{
+        if(!user){
+            console.log(user)
+            return res.status(422).json({error: 'something done broke'})
+        }
+        bcrypt.hash(newPassword,12)
+        .then(hashedPassword=>{
+            user.Password = hashedPassword
+            user.temporarytoken = false
+            user.save().then((saveduser)=>{
+               res.json({ succeed: true,
+                        message:"password updated success"})
+           })
+        })
+    })
+})
 
 
 
