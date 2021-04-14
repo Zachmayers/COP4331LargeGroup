@@ -1,9 +1,9 @@
 {
   "name": "listenin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Web app built with Node.js, Express, MongoDB, and React",
   "main": "server.js",
-  "homepage": "https://listenin.us",
+  "homepage": "https://listenin.us/",
   "engines": {
     "node": "15.x",
     "npm": "7.x"
