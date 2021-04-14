@@ -33,10 +33,11 @@
     "react-scripts": "^4.0.3",
     "react-spring": "^8.0.27",
     "react-tsparticles": "^1.19.4",
-    "unop-react-dropdown": "^0.1.7"
+    "unop-react-dropdown": "^0.1.7",
+    "concurrently": "^6.0.0"
   },
   "devDependencies": {
-    "concurrently": "^6.0.0"
+  
   },
   "scripts": {
     "start": "node server.js",
