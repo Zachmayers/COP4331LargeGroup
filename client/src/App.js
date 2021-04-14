@@ -7,7 +7,8 @@ import 'react-bootstrap';
 import Home from './components/pages/Home';
 import Banner from './components/pages/Banner'
 import NowPlaying from './components/pages/NowPlaying/NowPlaying'
-import Login from './components/pages/Login/Login'
+import Login from './components/pages/Login/SpotifyAuth'
+import GetToken from './components/pages/Login/GetTokens'
 import Signup from './components/pages/Signup';
 import logo from './Logo-Head-Forward.png';
 import Dropdown from './components/pages/NowPlaying/Dropdown';
@@ -98,7 +99,7 @@ function Main() {
   return(
 
     <Switch>
-      <Route exact path="/" component={TopTracks} />
+      <Route exact path="/" component={GetToken} />
       <Route exact path="/NowPlaying" component={NowPlaying} />
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />

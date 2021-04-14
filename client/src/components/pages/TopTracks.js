@@ -9,11 +9,26 @@ export default function TopTracks(props) {
   const access_token = localStorage.get("userToken")
   const [cards, setCards] = React.useState('')
 
+  const [term, setTerm] = React.useState('long')
+
+  function showLong(){
+    setTerm('long');
+  }
+  function showMedium(){
+    setTerm('medium');
+  }
+
+  function showShort(){
+    setTerm('short');
+  }
+
   axios.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${access_token}`;
 
-  axios.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50')
+  localStorage.remove("authToken")
+
+  axios.get('https://api.spotify.com/v1/me/top/artists?time_range='+ term +'_term&limit=50')
         .then((response) => {
           let tempCards = []
           response.data.items.forEach((item) => {
@@ -35,45 +50,23 @@ export default function TopTracks(props) {
           console.error('There was an error!', error);
       });
 
-    return (
-      <div className="background-banner">
-                <table className="artists-table">
-                  <tr className="artist-title"><h1 className="text-white">TOP ARTISTS</h1></tr>
-                  <tr>
-                    <td className="div-titles">
-                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">All Time</NavLink></tr>
-                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">This Month</NavLink></tr>
-                        <tr height="150px"><NavLink exact className="nav-link vertical-title" activeClassName="active" to="/TopTracks">Last 6 Months</NavLink></tr>
-                    </td>
-                    <td className="div-top-results">
-                      {cards}
-                    </td>
-                  </tr>
-                </table>
-      </div>
-    );
-}
-
-function LongTerm(){
-
-    return(
-      <div></div>
-    );
-   
-}
-
-function MediumTerm(){
-
-  return(
-    <div></div>
-  );
- 
-}
-
-function ShortTerm(){
-
-  return(
-    <div></div>
-  );
- 
+      return (
+        <div className="background-banner">
+                  <table className="artists-table"><tbody>
+                    <tr className="artist-title"><th colSpan="2"><h1 className="text-white">TOP ARTISTS</h1></th></tr>
+                    <tr>
+                      <td className="div-titles">
+                        <table><tbody>
+                          <tr height="150px"><td><a className={(term == "long" ? "active " : "") + "nav-link vertical-title"} onClick={showLong}>All Time</a></td></tr>
+                          <tr height="150px"><td><a className={(term == "short" ? "active " : "") + "nav-link vertical-title"} onClick={showShort}>This Month</a></td></tr>
+                          <tr height="150px"><td><a className={(term == "medium" ? "active " : "") + "nav-link vertical-title"} onClick={showMedium}>Last 6 Months</a></td></tr>
+                        </tbody></table>
+                      </td>
+                      <td className="div-top-results">
+                        {cards}
+                      </td>
+                    </tr>
+                    </tbody></table>
+        </div>
+      );
 }
