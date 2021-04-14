@@ -40,7 +40,7 @@
   
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run dev",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm run start\"",
     "heroku-postbuild": "cd client && npm install && npm run build "
   },
