@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
