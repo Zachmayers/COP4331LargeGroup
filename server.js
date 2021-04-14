@@ -4,6 +4,7 @@ const router = require('./routes/index');
 const path = require('path');
 //const {MONGOURI} = require('./keys')
 const PORT = process.env.PORT || 3000;
+const MONGOURI = "mongodb+srv://Server2:2NtM2Q58wQ0K19Rw@largeproject.grhmk.mongodb.net/LargeProject?retryWrites=true&w=majority";
 require('dotenv').config();
 
 const app = express();
@@ -16,8 +17,8 @@ app.use('/signup', router);
 require('./models/user')
 mongoose.model("User")
 
-//mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to the Database.');
 });
