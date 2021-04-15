@@ -98,7 +98,7 @@ function Main() {
   return(
 
     <Switch>
-      <Route exact path="/" component={GetToken} />
+      <Route exact path="/" component={Home} />
       <Route exact path="/NowPlaying" component={NowPlaying} />
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/Login" component={Login} />

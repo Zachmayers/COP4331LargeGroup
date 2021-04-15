@@ -6,7 +6,7 @@ import './Style/Header.css';
 import './Banner.css';
 
 export default function TopTracks(props) {
-  const access_token = localStorage.get("userToken")
+  const authToken = localStorage.get("authToken")
   const [cards, setCards] = React.useState('')
 
   const [term, setTerm] = React.useState('long')
@@ -24,9 +24,7 @@ export default function TopTracks(props) {
 
   axios.defaults.headers.common[
     'Authorization'
-  ] = `Bearer ${access_token}`;
-
-  localStorage.remove("authToken")
+  ] = `Bearer ${authToken}`;
 
   axios.get('https://api.spotify.com/v1/me/top/artists?time_range='+ term +'_term&limit=50')
         .then((response) => {
