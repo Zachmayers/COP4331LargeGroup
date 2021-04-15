@@ -14,7 +14,7 @@ class Player extends React.Component {
           play: false,
           pause: true,
         }
-        // this.url = "http://streaming.tdiradio.com:8000/song.mp3";
+        this.url = "http://streaming.tdiradio.com:8000/song.mp3";
         this.audio = new Audio(song);
       }
     play = () => {
@@ -31,10 +31,15 @@ class Player extends React.Component {
       return (
         <>
         <div className="center">
-          <h1>How about a little music while you wait?</h1>
+        
+       
+          <p>You're a little early to the party</p>
+        
+       
+          <h1>How abou a little music while you wait?</h1>
           <button onClick={this.play}>Play</button>
         <button onClick={this.pause}>Pause</button>
-          <audio src={'song.mp3'} />
+          <audio src={this.audio} />
           </div>
         </>
       );
