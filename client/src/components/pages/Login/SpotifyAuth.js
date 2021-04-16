@@ -5,20 +5,34 @@ import { authEndpoint, clientId, redirectUri, scopes } from './config';
 import localStorage from 'local-storage';
 
 export default function SpotifyAuth() {
-    if (!localStorage.get("userToken")) {
-      window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-        "%20"
-      )}&response_type=token&show_dialog=true`
+    window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+      "%20"
+    )}&response_type=token&show_dialog=true`
 
-      let authToken = hash.access_token;
-  
-      if (authToken) {
-        // Set token
-        localStorage.set("userToken", authToken)
-      }
-    } else {
-        window.location.href = 'http://localhost:3000/'
+    let authToken = hash.access_token;
+
+    if (authToken) {
+      // Set token
+      localStorage.set("userToken", authToken)
+      window.location.href = 'http://localhost:3000/'
     }
 }
+
+// export default function SpotifyAuth() {
+//   if (!localStorage.get("userToken")) {
+//     window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+//       "%20"
+//     )}&response_type=token&show_dialog=true`
+
+//     let authToken = hash.access_token;
+
+//     if (authToken) {
+//       // Set token
+//       localStorage.set("userToken", authToken)
+//     }
+//   } else {
+//       window.location.href = 'http://localhost:3000/'
+//   }
+// }
 
 
