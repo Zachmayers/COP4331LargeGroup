@@ -10,10 +10,6 @@ import ListenIn from './ListenIn.js';
 import Background from './Background';
 import Player from './Player';
 import localStorage from 'local-storage';
-<<<<<<< HEAD
-=======
-
->>>>>>> cbee921412677150824d01a5ee04677bfa2faf4c
 import TopTracks from './TopTracks';
 
 function Home() { 
