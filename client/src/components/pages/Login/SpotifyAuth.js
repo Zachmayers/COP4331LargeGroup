@@ -14,7 +14,8 @@ export default function SpotifyAuth() {
     if (authToken) {
       // Set token
       localStorage.set("userToken", authToken)
-      window.location.href = 'http://localhost:3000/'
+      //window.location.href = 'http://localhost:3000/'
+      window.location.href = 'https://listenin.us/TopTracks'
     }
 }
 
