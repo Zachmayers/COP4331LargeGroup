@@ -1,1 +1,0 @@
-curl -H "Content-Type: application/json" -X POST -d '{"Username":"Rudy","Password":"password","Email":"email@email.com", "FirstName":"Zach","LastName":"Mayers"}' http://localhost:3001/api/signup

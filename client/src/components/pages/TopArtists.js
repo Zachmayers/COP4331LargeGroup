@@ -46,7 +46,7 @@ export default function TopArtists(props) {
         tempCards.push(
           <div key={item.id}>
               <Card className="artist-card seeMore" onClick={() => artistTop(item.id, item.name)}>
-                <Card.Img variant="top" src={item.images[1].url} />
+                <Card.Img className="songImage" variant="top" src={item.images[1].url} />
                 <Card.Body>
                   <span>{index}.{item.name}</span>
                 </Card.Body>

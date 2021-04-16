@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { post } from 'axios';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import localStorage from 'local-storage';
 import './Style/Header.css';
 
 
@@ -16,11 +17,11 @@ const SignupSchema = Yup.object().shape({
 function doSubmit(data){     
     async function doSignUp() {
       try {
-        // TODO: Once we have this working we need to hash the password here and have the api accept
-        //       the hashed password instead of having the api hashing it
+        
         // THIS IS NOT WORKING, PLS FIX
-        const response = await post('/api/', {Username: data.username, Password: data.password}); 
+        const response = await post('/api/Login', {Username: data.username, Password: data.password}); 
          //props.history.push(`/articles/${response.data._id}`);  
+        localStorage.set("userId", response.data._id)
       } catch(error) {
         console.log('error', error);
       }

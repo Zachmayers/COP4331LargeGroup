@@ -43,8 +43,8 @@ export default function TopTracks(props) {
           tempCards.push(
             <div key={item.id}>
                 <Card className="artist-card">
-                  <Card.Img variant="top" src={item.album.images[1].url} />
-                  <Card.ImgOverlay className="songImage">
+                  <Card.Img className="songImage" variant="top" src={item.album.images[1].url} />
+                  <Card.ImgOverlay>
                   {item.preview_url ?
                     <button className="song-player" onClick={()=>toggle(item.preview_url)}>
                       <h1 className="icon-size">{playing && item.preview_url == currentUrl ? <BsPauseFill className="icon-white"/> : <BsPlayFill className="icon-white"/>}</h1>
