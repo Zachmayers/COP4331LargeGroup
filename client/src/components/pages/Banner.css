@@ -38,7 +38,7 @@
 .div-titles{
     float: left;
     margin-left: 3vw;
-    padding-top: 50px;
+    padding-top: 30px;
     height: 80vh;
     width: 50px;
     background-color: rgba(226, 226, 226, 0.0);
@@ -48,6 +48,22 @@
 	transform: rotate(180deg);
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.vertical-title.active {
+    text-decoration: underline;
+}
+
+.vertical-btn{
+    cursor: pointer;
+    background-color: rgba(127, 197, 255, 0.582);
+    border-radius: calc(15px / 2);
+    height:70px;
+    width:30px;
 }
 
 .text-underline{
@@ -59,13 +75,99 @@
     float:left;
     width:200px;
     height: 220px;
+    background-color: rgba(255, 255, 255, 0.489);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+.artist-card:hover{
+    background-color: rgba(255, 255, 255, 0.895);
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 60%), 0px 3px 4px 0px rgb(0 0 0 / 64%), 0px 1px 8px 0px rgb(0 0 0 / 62%);
+}
+.seeMore:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.895);
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 60%), 0px 3px 4px 0px rgb(0 0 0 / 64%), 0px 1px 8px 0px rgb(0 0 0 / 62%);
+}
+
+.cardInfo{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    text-align: left;
 }
 
 .artists-table{
     float: right;
 }
-
+.artist-track{
+    float:none;
+    margin: auto;
+}
 
 .artist-title{
   text-align: center;
+}
+
+.topPublic{
+    height: 98vh;
+    overflow: hidden;
+    padding: 50px 80px;
+    text-align: center;
+   
+}
+
+.subTitle{
+    font-size: 12px;
+    color:rgb(59, 59, 59);
+    float: left;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    background: #ffffff33;
+}
+::-webkit-scrollbar-thumb {
+    background: #b3b3b9;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 153, 153);
+}
+
+.div-top-results::-webkit-scrollbar {
+    width: 15px;
+    background: #e1f3f733;
+    border-radius: calc(15px / 3);
+}
+
+.div-top-results::-webkit-scrollbar-thumb {
+    background: #b3b3b9;
+    border-radius: calc(15px / 3);
+}
+
+.div-top-results::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 153, 153);
+}
+
+.song-player{
+    background-color: transparent;
+    border: none;
+    margin: 10% 32%;
+}
+
+.icon-white{
+    color: white;
+}
+.icon-white:hover{
+    color: rgb(117, 168, 23);
+}
+
+.icon-size{
+    font-size: 58px;
+}
+
+.songImage{
+    background-color: rgba(85, 49, 49, 0.151);
 }

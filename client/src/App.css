@@ -21,6 +21,7 @@
   .navbar {
     position: fixed;
     width: 100vw;
+    z-index: 100;
   }
 
   .navBarTransparent .navbar{
@@ -28,4 +29,9 @@
   }
   .navBarSolid .navbar{
     background-color: rgba(66, 4, 63, 0.897);
+  }
+
+  
+  body{
+    overflow-y: hidden;
   }

@@ -1,6 +1,5 @@
 import React, { useState } from "react"; 
 import { post } from 'axios';
-// import { Container, Grid } from "@material-ui/core"
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -33,11 +32,24 @@ const SignupSchema = Yup.object().shape({
                              .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
+function doSubmit(data){     
+    async function doSignUp() {
+      try {
+        const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
+         //props.history.push(`/articles/${response.data._id}`);  
+      } catch(error) {
+        console.log('error', error);
+      }
+    }
+    doSignUp();
+}
+
+
 function Signup(props) {    
     return (
         <Formik
             validationSchema={SignupSchema}
-            onSubmit={console.log}
+            onSubmit={doSubmit}
             initialValues={{
                 firstName: '',
                 lastName: '',

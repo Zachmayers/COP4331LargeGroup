@@ -121,3 +121,7 @@
     margin:auto;
     background: rgb(39 8 69);
   }
+
+  .closebtn{
+    float:right;
+  }

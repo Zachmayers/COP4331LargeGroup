@@ -8,6 +8,7 @@ import "./Login.css";
 import ListenIn from "../ListenIn";
 import Title from "../Title";
 import Background from "../Background";
+import localStorage from 'local-storage';
 
 class Login extends Component {
   constructor() {
@@ -34,7 +35,8 @@ class Login extends Component {
   componentDidMount() {
     // Set token
     let _token = hash.access_token;
-
+    localStorage.set("userToken",_token)
+    console.log(_token);
     if (_token) {
       // Set token
       this.setState({
@@ -62,7 +64,7 @@ class Login extends Component {
   getCurrentlyPlaying(token) {
     // Make a call using the token
     $.ajax({
-      url: "https://api.spotify.com/v1/me/Player",
+      url: "https://api.spotify.com/v1/me/player",
       type: "GET",
       beforeSend: xhr => {
         xhr.setRequestHeader("Authorization", "Bearer " + token);

@@ -14,11 +14,11 @@ function LoginComp(props) {
     
     function handleSubmit(event) { 
         event.preventDefault();     
-        if(!User.title || !User.content ) return 
+        if(!User.Username || !User.Password ) return 
         async function postLogin() {
             try {
-                const response = await post('/api/Users', User); 
-                props.history.push(`/Users/${response.data._id}`);  
+                const response = await post('/api/Login', User); 
+                props.history.push(`/TopTracks/${response.data._id}`);  
             } catch(error) {
                 console.log('error', error);
             }
@@ -32,7 +32,7 @@ function LoginComp(props) {
     
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <div className="welcomeText">
                     Please Log In
                 </div>

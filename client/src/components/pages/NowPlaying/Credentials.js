@@ -1,8 +1,8 @@
 const Credentials = () => {
 require('dotenv').config();  
     return {
-        ClientId: '717d9cf9ead04d2fb7497fda4d407dfe',
-        ClientSecret: 'ea944e528a594ce487983ce24274a0a9'
+        ClientId: 'f8b6892b26ed41e08b23c7c8b086a91c',
+        ClientSecret: '1d86a1c6a46d4ed5955bf3004ee93144'
     }
 }
 

@@ -17,30 +17,15 @@ import { Credentials } from './components/pages/NowPlaying/Credentials';
 import axios from 'axios';
 import TopArtists from './components/pages/TopArtists';
 import TopTracks from './components/pages/TopTracks';
+import TopTracksArtist from './components/pages/TopTracksArtist';
+import DiscoverNew from './components/pages/DiscoverNew';
 import Token from './components/auth/Token';
-import { SpotifyApiContext, SpotifyApiAxiosContext } from 'react-spotify-api';
-
-<SpotifyApiAxiosContext.Provider value={axios}>
-  <SpotifyApiContext.Provider >
-    <App />
-  </SpotifyApiContext.Provider>
-</SpotifyApiAxiosContext.Provider>
+import localStorage from 'local-storage';
+import About from './components/pages/About'
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Navigation />
-        <div>
-          <Main />
-        </div>
-      </Router>
-    </div>
-  );
-}
-
-function Navigation() {
-  const [navBackground, setNavBackground] = useState('navBarTransparent')
+    const [user, setUser] = useState({});
+    const [navBackground, setNavBackground] = useState('navBarTransparent')
 
   const navRef = React.useRef()
   navRef.current = navBackground
@@ -60,49 +45,61 @@ function Navigation() {
       }
   },[])
 
-
-  return(
-    <div className={navRef.current}>
-      <HomeNavbar></HomeNavbar>
+  return (
+    <div className="App">
+      <Router>
+        <div className={navRef.current}>
+            <HomeNavbar setUser={setUser} user={user}></HomeNavbar>
+        </div>
+        <div>
+          <Main setUser={setUser} user={user}/>
+        </div>
+      </Router>
     </div>
-    
   );
 }
 
-function HomeNavbar() {
+function HomeNavbar(props) {
+    function logOut() {props.setUser({})}
   return(
     <nav className="navbar navbar-expand">
       <div className='container'>
         <ul className="navbar-nav mr-auto">
         <a className="navbar-brand text-white" href="#">Listen In</a>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/NowPlaying">Now-playing</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/About">About Us</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopArtists">Top Artists</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopTracks">Top Tracks</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/DiscoverNew">Discover New Music</NavLink></li>
         </ul>
-        <ul className="navbar-nav ml-auto">
+        {
+          props.user.name ?
+          <ul className="navbar-nav ml-auto">
+            <li className="navbar-brand text-white">{props.user.name}</li>
+            <li className="nav-item"><a className="nav-link" href="javascript:void(null);" onClick={logOut}>Log out</a></li>
+          </ul>
+          :
+          <ul className="navbar-nav ml-auto">
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Signup">Create an account</NavLink></li>
         </ul>
+        }
       </div>
     </nav>
   );
 }
 
-function HomePage() {
-  return(
-      <Banner />
-  );
-}
-
-function Main() {
+function Main(props) {
   return(
 
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/NowPlaying" component={NowPlaying} />
-      <Route exact path="/Signup" component={Signup} />
-      <Route exact path="/Login" component={Login} />
-      <Route exact path="/TopTracks" component={TopTracks} />
+        <Route exact path="/" render={(p) => <Home {...p} user={props.user} />} />
+    <Route exact path="/NowPlaying" component={NowPlaying} />
+        <Route exact path="/Login" render={(p) => <Login {...p} user={props.user} />} />
+        <Route exact path="/About" render={(p) => <About {...p} user={props.user} />} />
+      <Route exact path="/TopArtists" render={(p) => <TopArtists {...p} user={props.user} />} />
+      <Route exact path="/TopTracks" render={(p) => <TopTracks {...p} user={props.user} />} />
+      <Route exact path="/DiscoverNew" render={(p) => <DiscoverNew {...p} user={props.user} />} />
+      <Route path="/TopTracksArtist/:id/:name" render={(p) => <TopTracksArtist {...p} user={props.user}/>} />
       <Route path="/verify:token" component={Token} />
     </Switch>
 

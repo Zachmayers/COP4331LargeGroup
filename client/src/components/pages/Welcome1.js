@@ -18,7 +18,7 @@ function Welcome1() {
                     <div id="collapse-login">
                         <div>
                             <Title />
-                            <p1 className="welcomeText">Welcome to Listen In</p1>
+                            <h1 className="welcomeText">Welcome to Listen In</h1>
                         </div>
                         <div>
                             <Button variant="primary"
@@ -38,11 +38,18 @@ function Welcome1() {
                                     <LoginComp />
                                 </div>
                                 <div>
+                                    <br/>
                                     <Button variant="primary"
                                             onClick={() => setVerticalOpen(!verticalOpen)}
                                             aria-controls="login-signup"
                                             aria-expanded={verticalOpen}>
                                         Sign Up
+                                    </Button>{' '}
+                                    <Button variant="primary"
+                                            onClick={() => setOpen(!open)}
+                                            aria-controls="collapse-login"
+                                            aria-expanded={open}>
+                                        Close
                                     </Button>{' '}
                                 </div>
                             </div>
@@ -53,22 +60,24 @@ function Welcome1() {
                                     <SignupComp />
                                 </div>
                                 <div>
+                                    <br/>
                                     <Button variant="primary"
                                             onClick={() => setVerticalOpen(!verticalOpen)}
                                             aria-controls="login-signup"
                                             aria-expanded={verticalOpen}>
                                         Log In
                                     </Button>{' '}
+                                    <Button variant="primary"
+                                            onClick={() => setOpen(!open)}
+                                            aria-controls="collapse-login"
+                                            aria-expanded={open}>
+                                        Close
+                                    </Button>{' '}
                                 </div>
                             </div>
                         </Collapse>
                         
-                        <Button variant="primary"
-                                    onClick={() => setOpen(!open)}
-                                    aria-controls="collapse-login"
-                                    aria-expanded={open}>
-                            Close
-                        </Button>{' '}
+                        
                     </div>
                 </Collapse>
             </Card.Body>
