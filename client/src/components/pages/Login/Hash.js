@@ -1,4 +1,5 @@
 // Get the hash of the url
+console.log(window.location.hash)
 const hash = window.location.hash
   .substring(1)
   .split("&")

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import {BrowserRouter as Router, NavLink, Route, Switch, withRouter} from 'react-router-dom';
 import Particles from "react-tsparticles";
 import './App.css';
@@ -7,7 +6,8 @@ import 'react-bootstrap';
 import Home from './components/pages/Home';
 import Banner from './components/pages/Banner'
 import NowPlaying from './components/pages/NowPlaying/NowPlaying'
-import Login from './components/pages/Login/Login'
+import Login from './components/pages/Login/SpotifyAuth'
+import GetToken from './components/pages/Login/GetTokens'
 import Signup from './components/pages/Signup';
 import logo from './Logo-Head-Forward.png';
 import Dropdown from './components/pages/NowPlaying/Dropdown';
@@ -105,7 +105,5 @@ function Main(props) {
 
   );
 }
-
-
 
 export default App;

@@ -11,6 +11,7 @@ import Background from './Background';
 import Player from './Player';
 import localStorage from 'local-storage';
 import ArticleList from '../articles/ArticleList';
+import TopTracks from './TopTracks';
 
 function Home() { 
 

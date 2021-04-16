@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BsPlayFill, BsPauseFill } from 'react-icons/bs';
 import { Card } from 'react-bootstrap';
+import localStorage from 'local-storage';
 import './Style/Header.css';
 import './Banner.css';
 import localStorage from 'local-storage';
