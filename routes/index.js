@@ -9,59 +9,6 @@ const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 const sgMail = require('@sendgrid/mail')
 
-
-router.get('/articles', function(req, res) {
-    Article.find(function(err, articles) {
-        res.json(articles);
-    });
-});
-
-router.get('/articles/:id', function(req, res) {
-    Article.findById(req.params.id, function(err, article) {
-        if (!article) {
-            res.status(404).send('No result found');
-        } else {
-            res.json(article);
-        }
-    });
-});
-
-router.post('/articles', function(req, res) {
-    let article = new Article(req.body);
-    article.save()
-    .then(article => {
-        res.send(article);
-    })
-    .catch(function(err) {
-        res.status(422).send('Article add failed');
-    });
-});
-
-router.patch('/articles/:id', function(req, res){
-    Article.findByIdAndUpdate(req.params.id, req.body)
-    .then(function() {
-        res.json('Article updated');
-    })
-    .catch(function(err) {
-        res.status(422).send("Article update failed.");
-    });
-});
-
-router.delete('/articles/:id', function(req, res) {
-    Article.findById(req.params.id, function(err, article) {
-        if (!article) {
-            res.status(404).send('Article not found');
-        } else {
-            Article.findByIdAndRemove(req.params.id)
-            .then(function() { res.status(200).json("Article deleted") })
-            .catch(function(err) {
-                res.status(400).send("Article delete failed.");
-            })
-        }
-    });
-})
-
-
 router.get('/protected',auth,(req,res)=>{
     res.send("hello user")
 })
@@ -101,7 +48,7 @@ router.post('/Signup',(req,res)=>{
                 //res.send({msg:"saved successfully"})
                 console.log(user.id)
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
-                const hrefLink = "http://localhost:3000/verify/" + Users.temporarytoken;
+                const hrefLink = "https://listenin.us/verify/" + Users.temporarytoken;
                 const msg = {
                     to: user.Email, // Change to your recipient
                     from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
@@ -262,7 +209,7 @@ router.post('/resetpassword', (req, res) => {
                 // If save succeeds, create e-mail object
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
                 console.log("creating email");
-                const hrefLink = "http://localhost:3000/reset/" + user.temporarytoken;
+                const hrefLink = "https://listenin.us/reset/" + user.temporarytoken;
                 const msg = {
                     to: Email, // Change to your recipient
                     from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
@@ -313,6 +260,16 @@ router.post('/newpassword', (req,res) => {
     })
 })
 
-
+router.delete('/delete', (req,res) => {
+    const {id} = req.body;
+    User.deleteOne({_id: id}, function(err){
+        if(err) console.log(err);
+        res.json({
+            //ID: user.id,
+            succeed: true,
+            msg: "User has been successfully deleted"
+        });
+    })
+})
 
 module.exports = router;
