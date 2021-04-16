@@ -11,7 +11,7 @@ export default function SpotifyAuth() {
       "user-read-currently-playing",
       "user-read-playback-state",
   ];
-    if (!localStorage.get("authToken")) {
+    if (!localStorage.get("userToken")) {
       window.location.href = `${authEndpoint}?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirectUri}&scope=${scopes.join(
         "%20"
       )}&response_type=token&show_dialog=true`
@@ -20,7 +20,7 @@ export default function SpotifyAuth() {
   
       if (authToken) {
         // Set token
-        localStorage.set("authToken", authToken)
+        localStorage.set("userToken", authToken)
       }
     } else {
         window.location.href = 'http://localhost:3000/'
