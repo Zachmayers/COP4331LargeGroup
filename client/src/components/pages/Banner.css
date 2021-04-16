@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 700px;
+    height: 100%;
     width: 100%;
     background-image: url("fondodark.jpg");
     z-index: -10;
@@ -13,6 +13,8 @@
     padding-top: 10vh; 
     background-image: url("fondodark.jpg");
     overflow-y: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .option{

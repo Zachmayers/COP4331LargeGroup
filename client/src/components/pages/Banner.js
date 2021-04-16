@@ -8,7 +8,7 @@ import fondo from './fondo.jpg';
 function Banner() {
 
     return (
-        <div className="banner" >
+        <div className="banner background-banner" >
             {/* <Title /> */}
             <Welcome1 />
         </div>
