@@ -35,6 +35,8 @@ const SignupSchema = Yup.object().shape({
 function doSubmit(data){     
     async function doSignUp() {
       try {
+        // TODO: Once we have this working we need to hash the password here and have the api accept
+        //       the hashed password instead of having the api hashing it
         const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
          //props.history.push(`/articles/${response.data._id}`);  
       } catch(error) {

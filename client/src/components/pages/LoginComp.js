@@ -1,65 +1,95 @@
 import React, { useState } from "react"; 
-import { Container, Row, Col, Form } from 'react-bootstrap';
-import { post } from 'axios'; 
+import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { post } from 'axios';
+import { Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import './Style/Header.css';
 
+
+const SignupSchema = Yup.object().shape({
+    username: Yup.string()
+                  .required('Required'),
+    password: Yup.string()
+                 .required('Please Enter a password')
+});
+
+function doSubmit(data){     
+    async function doSignUp() {
+      try {
+        // TODO: Once we have this working we need to hash the password here and have the api accept
+        //       the hashed password instead of having the api hashing it
+        // THIS IS NOT WORKING, PLS FIX
+        const response = await post('/api/', {Username: data.username, Password: data.password}); 
+         //props.history.push(`/articles/${response.data._id}`);  
+      } catch(error) {
+        console.log('error', error);
+      }
+    }
+    doSignUp();
+}
+
+
 function LoginComp(props) {
-    const initialState = { Email: '', Username: '', Password: '' }
-    const [User, setLogin] = useState(initialState) 
-    // IDK IF THE LOGIN REQUEST WORKS, PROBABLY NOT (NEEDS TO BE WORKED ON) ~Gui
-    function handleChange(event) { 
-        setLogin({...User, [event.target.name]: event.target.value})
-    }
-    
-    function handleSubmit(event) { 
-        event.preventDefault();     
-        if(!User.Username || !User.Password ) return 
-        async function postLogin() {
-            try {
-                const response = await post('/api/Login', User); 
-                props.history.push(`/TopTracks/${response.data._id}`);  
-            } catch(error) {
-                console.log('error', error);
-            }
-        }
-        postLogin();
-    }
-    
-    function handleCancel() {
-        props.history.push("/Users");
-    }
-    
     return (
-        <Container>
-            <Form onSubmit={handleSubmit}>
-                <div className="welcomeText">
-                    Please Log In
-                </div>
-                <Form.Group as={Col} controlId="formUsername">
-                    <Form.Control placeholder="Username" />
-                </Form.Group>
-                <Form.Group as={Col} controlId="formPassword">
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <div>
-                        <input type="submit" value="Submit" className="btn btn-primary" />
-                        {/* <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button> */}
-                </div>
-            </Form>
-            {/* <form onSubmit={handleSubmit}>
-                <div className="form-group login-form">
-                    <p>Please Log In</p>
-                    <label>Username</label>
-                        <textarea name="Username" rows="1" value={setLogin.content} onChange={handleChange} className="form-control" />
-                    <label>Password</label>
-                        <textarea name="Password" rows="1" value={setLogin.content} onChange={handleChange} className="form-control" />
-                <div>
-                        <input type="submit" value="Submit" className="btn btn-primary" />
-                        {/* <button type="button" onClick={handleCancel} className="btn btn-secondary">Cancel</button> */}
-                {/* </div>
-                </div>
-            </form> */}
-        </Container>
+        <Formik
+            validationSchema={SignupSchema}
+            onSubmit={doSubmit}
+            initialValues={{
+                username: '',
+                password: '',
+            }}
+        >
+            {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                touched,
+                isValid,
+                errors,
+            }) => (
+                <Form noValidate onSubmit={handleSubmit}>
+                    <div className="welcomeText">
+                        Please Log In
+                    </div>
+                    <InputGroup hasValidation>
+                        <Form.Group controlId="formUsername">
+                            <Form.Control
+                                placeholder="Username"
+                                type="text"
+                                name="username"
+                                value={values.username}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                isInvalid={touched.username && !!errors.username}
+                                isValid={touched.username && !errors.username}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.username}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </InputGroup>
+                    <Form.Group controlId="formPassword">
+                        <Form.Control
+                            placeholder="Password"
+                            type="password"
+                            name="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={touched.password && !!errors.password}
+                            isValid={touched.password && !errors.password}
+                            />
+                        <Form.Control.Feedback type="invalid" className="errorMessage">
+                            {errors.password}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            )}
+        </Formik>
     )
 }
 
