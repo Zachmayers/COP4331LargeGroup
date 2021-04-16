@@ -87,15 +87,7 @@
     width:140px;
     height:140px;
   }
-  
-  .btn-success {
-    background-color: #3b7d4a!important;
-  }
-  
-  .btn-success:hover {
-    background-color: #4daf64!important;
-  }
-  
+ 
   img.track {
     border: 1px solid #8a8a8a;
   }
@@ -124,4 +116,24 @@
 
   .closebtn{
     float:right;
+  }
+
+  .btn{
+    background-color: transparent;
+    border-radius: 1em;
+    border: 0.1em solid #1ecd97;
+    color: #1ecd97;
+    cursor: pointer;
+    font-size: 2vmin;
+    padding: 0.em 1.5em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+  }
+
+  .btn-success {
+    background-color: #3b7d4a!important;
+  }
+  
+  .btn-success:hover {
+    background-color: #4daf64!important;
   }
