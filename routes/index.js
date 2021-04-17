@@ -142,9 +142,9 @@ router.put('/verify', (req, res) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 console.log(err);
-                res.json({ success: false, msg: "Activation link has expired." }); // Token is expired
+                res.status(442).json({ error: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                res.json({ success: false, msg: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
+                res.status(442).json({ error: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
