@@ -271,7 +271,7 @@ router.post('/newpassword', (req,res) => {
 })
 
 router.delete('/delete/:id', (req,res) => {
-    const {id} = req.path.id;
+    const id = req.params.id;
     if(!id){
         console.log("id is missing")
         return res.status(442).json({error:"ID is missing"})
