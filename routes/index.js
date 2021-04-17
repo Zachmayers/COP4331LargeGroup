@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-//const {JWT_SECRET} = require('../keys')
-//const {SENDGRID_KEY} = require('../keys')
+// const {JWT_SECRET} = require('../keys')
+// const {SENDGRID_KEY} = require('../keys')
 const auth = require('../middleware/auth')
 const sgMail = require('@sendgrid/mail')
 
@@ -35,6 +35,7 @@ router.post('/Signup',(req,res)=>{
                 Email,
                 FirstName,
                 LastName,
+                // temporarytoken: jwt.sign(Username, JWT_SECRET)
                 temporarytoken: jwt.sign(Username, process.env.JWT_SECRET)
             })
             //Users.save(function(err,newUser){
@@ -46,6 +47,7 @@ router.post('/Signup',(req,res)=>{
                 console.log("saved successfully")
                 //res.send({msg:"saved successfully"})
                 console.log(user.id)
+                // sgMail.setApiKey(SENDGRID_KEY)
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
                 const hrefLink = "https://listenin.us/verify/" + Users.temporarytoken;
                 const msg = {
@@ -99,6 +101,7 @@ router.post('/Login',(req,res)=>{
                 //res.json({msg:"successfully signed in"})
                 const token = jwt.sign(
                     {_id:savedUser._id},
+                    // JWT_SECRET,
                     process.env.JWT_SECRET,
                     { expiresIn: 3600 },
                     (err, token) => {
@@ -128,13 +131,14 @@ router.post('/Login',(req,res)=>{
 
 // @route PUT /verify/{JWT}
 // @desc activate the user's account
-router.put('/verify/:token', (req, res) => {
+router.put('/verify/', (req, res) => {
     console.log("putting");
     User.findOne({ temporarytoken: req.params.token }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
         const token = req.params.token; // Save the token from URL for verification
         console.log("the token is", token);
         // Function to verify the user's token
+        // jwt.verify(token, JWT_SECRET, (err, decoded) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 console.log(err);
@@ -150,6 +154,7 @@ router.put('/verify/:token', (req, res) => {
                         console.log(err); // If unable to save user, log error info to console/terminal
                     } else {
                         // If save succeeds, create e-mail object
+                        // sgMail.setApiKey(SENDGRID_KEY)
                         sgMail.setApiKey(process.env.SENDGRID_KEY)
                         console.log("creating email");
                         const msg = {
@@ -197,6 +202,7 @@ router.post('/resetpassword', (req, res) => {
             return res.status(422).json({error:"User dont exists with that email"});
         }
         console.log("signing token");
+        // const newToken = jwt.sign(Email,JWT_SECRET);
         const newToken = jwt.sign(Email,process.env.JWT_SECRET);
         user.temporarytoken = newToken;
         console.log(user.temporary);
@@ -206,6 +212,7 @@ router.post('/resetpassword', (req, res) => {
                 console.log(err); // If unable to save user, log error info to console/terminal
             } else {
                 // If save succeeds, create e-mail object
+                // sgMail.setApiKey(SENDGRID_KEY)
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
                 console.log("creating email");
                 const hrefLink = "https://listenin.us/reset/" + user.temporarytoken;

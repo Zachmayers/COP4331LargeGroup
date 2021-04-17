@@ -100,7 +100,7 @@ function Main(props) {
       <Route exact path="/TopTracks" render={(p) => <TopTracks {...p} user={props.user} />} />
       <Route exact path="/DiscoverNew" render={(p) => <DiscoverNew {...p} user={props.user} />} />
       <Route path="/TopTracksArtist/:id/:name" render={(p) => <TopTracksArtist {...p} user={props.user}/>} />
-      <Route path="/verify:token" component={Token} />
+      <Route path="/verify" component={Token} />
     </Switch>
 
   );
