@@ -7,7 +7,6 @@ export default function GetToken() {
     const authToken = localStorage.get("authToken")
     const code = localStorage.get("authCode")
     if (authToken) {
-        console.log("GOTHERE")
         axios('https://accounts.spotify.com/api/token', {
             headers: {
                 'Content-Type' : 'application/x-www-form-urlencoded',
@@ -18,8 +17,7 @@ export default function GetToken() {
                     `redirect_uri=${redirectUri}`],
             method: 'POST'
         })
-        .then(tokenResponse => {   
-            console.log('ITWORKED')
+        .then(tokenResponse => {
             console.log(tokenResponse)   
         })
     }

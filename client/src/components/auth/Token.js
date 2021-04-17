@@ -11,11 +11,11 @@ export default function Token() {
 	if (token) {
 		makeAPICall(token);
 		// wait 5 seconds then redirect
-		// setTimeout(function () {
-		// 	window.location.href = 'https://listenin.us/TopTracks'
-		// }, 5000);
+		setTimeout(function () {
+			window.location.href = 'https://listenin.us/TopTracks'
+		}, 5000);
 	} else {
-		console.log("token")
+		console.log("token is not here")
 	}
 
 	return (
@@ -23,18 +23,23 @@ export default function Token() {
 			<div className="artist-title">
 				<h1 className="text-white">You will be redirected shortly</h1>
 			</div>
+			{/* <div className="artist-title">
+				<h1 className="text-white">
+					If you are not being redirected click 
+					<a href="https://listenin.us/">here</a>
+				</h1>
+			</div> */}
 		</div>
 	)
 }
 
 async function makeAPICall(token) {
 	try {
-	  console.log(token)
 	  await axios.put('/api/verify', {token: token});
 	} catch(error) {
 	  console.log('error', error);
 	}
-  }
+}
 
 // export default class Token extends Component {
 // 	constructor(props) {
