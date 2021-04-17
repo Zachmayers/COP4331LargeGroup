@@ -11,9 +11,11 @@ export default function Token() {
 	if (token) {
 		makeAPICall(token);
 		// wait 5 seconds then redirect
-		setTimeout(function () {
-			window.location.href = 'https://listenin.us/TopTracks'
-		}, 5000);
+		// setTimeout(function () {
+		// 	window.location.href = 'https://listenin.us/TopTracks'
+		// }, 5000);
+	} else {
+		console.log("token")
 	}
 
 	return (
@@ -28,7 +30,7 @@ export default function Token() {
 async function makeAPICall(token) {
 	try {
 	  console.log(token)
-	  await axios.post('/api/Verify', {token: token});
+	  await axios.put('/api/verify', {token: token});
 	} catch(error) {
 	  console.log('error', error);
 	}

@@ -137,9 +137,9 @@ router.post('/Login',(req,res)=>{
 // @desc activate the user's account
 router.put('/verify', (req, res) => {
     console.log("putting");
-    User.findOne({ temporarytoken: req.params.token }, (err, user) => {
+    User.findOne({ temporarytoken: req.body.token }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
-        const token = req.params.token; // Save the token from URL for verification
+        const token = req.body.token; // Save the token from URL for verification
         console.log("the token is", token);
         // Function to verify the user's token
         // jwt.verify(token, JWT_SECRET, (err, decoded) => {
