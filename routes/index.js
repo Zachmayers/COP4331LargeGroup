@@ -94,6 +94,10 @@ router.post('/Login',(req,res)=>{
             console.log("username is scuffed")
             return res.status(442).json({error:"Please add both Email and Password"})
         }
+        if(savedUser.active == false){
+            console.log("user not verified")
+            return res.status(442).json({error:"the user is not verified"})
+        }
         //console.log(Password + "  saved   " + savedUser.Password)
         bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
