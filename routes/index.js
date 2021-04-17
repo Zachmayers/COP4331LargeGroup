@@ -67,7 +67,7 @@ router.post('/Signup',(req,res)=>{
                 })
                 res.json({
                     //ID: user.id,
-                    succeed: true,
+                    success: true,
                     msg: "User has been successfully activated"
                 });
             })
@@ -175,7 +175,7 @@ router.put('/verify', (req, res) => {
                             console.error(error)
                         })
                         res.json({
-                            succeed: true,
+                            success: true,
                             msg: "User has been successfully activated9875343"
                         });
                     }
@@ -233,7 +233,7 @@ router.post('/resetpassword', (req, res) => {
                     console.error(error)
                 })
                 res.json({
-                    succeed: true,
+                    success: true,
                     msg: "User has been successfully requested reset"
                 });
             }
@@ -259,7 +259,7 @@ router.post('/newpassword', (req,res) => {
             user.Password = hashedPassword
             user.temporarytoken = false
             user.save().then((saveduser)=>{
-               res.json({ succeed: true,
+               res.json({ success: true,
                         message:"password updated success"})
            })
         })
@@ -272,7 +272,7 @@ router.delete('/delete', (req,res) => {
         if(err) console.log(err);
         res.json({
             //ID: user.id,
-            succeed: true,
+            success: true,
             msg: "User has been successfully deleted"
         });
     })
