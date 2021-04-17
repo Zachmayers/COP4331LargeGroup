@@ -199,7 +199,7 @@ router.post('/resetpassword', (req, res) => {
         console.log(user);
         if (err) throw err; // Throw error if no valid user
         if(!user){
-            return res.status(422).json({error:"User dont exists with that email"});
+            return res.status(442).json({error:"User dont exists with that email"});
         }
         console.log("signing token");
         // const newToken = jwt.sign(Email,JWT_SECRET);
@@ -252,7 +252,7 @@ router.post('/newpassword', (req,res) => {
     .then(user=>{
         if(!user){
             console.log(user)
-            return res.status(422).json({error: 'something done broke'})
+            return res.status(442).json({error: 'something done broke'})
         }
         bcrypt.hash(newPassword,12)
         .then(hashedPassword=>{
