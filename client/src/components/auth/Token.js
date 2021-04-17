@@ -27,7 +27,8 @@ export default function Token() {
 
 async function makeAPICall(token) {
 	try {
-	  await axios.post('/api/Signup', {token: token});
+	  console.log(token)
+	  await axios.post('/api/Verify', {token: token});
 	} catch(error) {
 	  console.log('error', error);
 	}

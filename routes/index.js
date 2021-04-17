@@ -131,7 +131,7 @@ router.post('/Login',(req,res)=>{
 
 // @route PUT /verify/{JWT}
 // @desc activate the user's account
-router.put('/verify/', (req, res) => {
+router.put('/verify', (req, res) => {
     console.log("putting");
     User.findOne({ temporarytoken: req.params.token }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
