@@ -268,6 +268,10 @@ router.post('/newpassword', (req,res) => {
 
 router.delete('/delete', (req,res) => {
     const {id} = req.body;
+    if(!id){
+        console.log("id is missing")
+        return res.status(442).json({error:"ID is missing"})
+    }
     User.deleteOne({_id: id}, function(err){
         if(err) console.log(err);
         res.json({
