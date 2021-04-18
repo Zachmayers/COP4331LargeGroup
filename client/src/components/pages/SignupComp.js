@@ -1,6 +1,6 @@
 import React, { useState } from "react"; 
 import { post } from 'axios';
-import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Style/Header.css';
@@ -175,9 +175,17 @@ function Signup(props) {
                     </Form.Row>
                     {/* This Error Message needs errorMessage class to stay the correct size*/}
                     {/* <ErrorMessage name="password">{msg => <div className="errorMessage">{msg}</div>}</ErrorMessage> */}
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <ButtonGroup>
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                        <Button variant="primary" onClick={(e) => props.showWelcome()}>
+                            Exit
+                        </Button>
+                    </ButtonGroup>
+                    <div>
+                        Already have an account? <a className="link" onClick={(e) => props.showLogIn()}>Log In!</a>
+                    </div>
                 </Form>
             )}
         </Formik>

@@ -54,7 +54,6 @@ export default function TopArtists(props) {
           </div>
         )
       })
-
       setCards(tempCards)
     })
     .catch(error => {

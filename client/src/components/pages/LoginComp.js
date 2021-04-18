@@ -1,5 +1,5 @@
 import React, { useState } from "react"; 
-import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import { post } from 'axios';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -15,18 +15,17 @@ const SignupSchema = Yup.object().shape({
 });
 
 function doSubmit(data){     
-    async function doSignUp() {
+    async function doLogIn() {
       try {
-        
-        // THIS IS NOT WORKING, PLS FIX
         const response = await post('/api/Login', {Username: data.username, Password: data.password}); 
          //props.history.push(`/articles/${response.data._id}`);  
         localStorage.set("userId", response.data._id)
+        localStorage.set("loginToken", response.data)
       } catch(error) {
         console.log('error', error);
       }
     }
-    doSignUp();
+    doLogIn();
 }
 
 
@@ -85,9 +84,20 @@ function LoginComp(props) {
                             {errors.password}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <ButtonGroup>
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                        <Button variant="primary" onClick={(e) => props.showWelcome()}>
+                            Exit
+                        </Button>
+                    </ButtonGroup>
+                    <div>
+                        Need an account? <a className="link" onClick={(e) => props.showSignUp()}>Sign Up!</a>
+                    </div>
+                    <div>
+                        Forgot your password? <a className="link" onClick={(e) => props.showPasswordReset()}>Reset It!</a>
+                    </div>
                 </Form>
             )}
         </Formik>
