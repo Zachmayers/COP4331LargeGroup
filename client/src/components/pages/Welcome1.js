@@ -28,10 +28,6 @@ function Welcome1(props) {
         setTerm('login')
     }
 
-    function showLogInWithMessage() {
-        setTerm('loginwithmessage')
-    }
-
     function showSignUp() {
         setTerm('signup')
     }
@@ -67,19 +63,9 @@ function Welcome1(props) {
                 <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} />
             )
         }
-        if (term == 'loginwithmessage') {
-            return (
-                <div>
-                    <div>
-                        Account Successfully Created
-                    </div>
-                    <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} />
-                </div>
-            )
-        }
         if (term == 'signup') {
             return (
-                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome} showLogInWithMessage={showLogInWithMessage} />
+                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome}/>
             )
         }
         if (term == 'passwordreset') {

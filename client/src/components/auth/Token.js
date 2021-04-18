@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+import {Card} from 'react-bootstrap';
 import { connect } from "react-redux";
 import { getVerifyUser } from "../../actions/tokenAction";
 import axios from 'axios';
 import { render } from "react-dom";
-import '../pages/Banner.css';
+import '../pages/Style/Header.css';
 
 export default function Token() {
 	const token = window.location.pathname.split("/")[2]
-
+	const text = 'If you are not being redirected click '
 	if (token) {
 		makeAPICall(token);
 		// wait 5 seconds then redirect
 		setTimeout(function () {
-			window.location.href = 'https://listenin.us/TopTracks'
+			window.location.href = 'https://listenin.us/'
 		}, 5000);
 	} else {
 		console.log("token is not here")
@@ -20,15 +21,17 @@ export default function Token() {
 
 	return (
 		<div className="banner background-banner">
-			<div className="artist-title">
-				<h1 className="text-white">You will be redirected shortly</h1>
-			</div>
-			{/* <div className="artist-title">
-				<h1 className="text-white">
-					If you are not being redirected click 
-					<a href="https://listenin.us/">here</a>
-				</h1>
-			</div> */}
+			<Card className="centerCard">
+                <Card.Body>   
+					<div className="welcomeText">
+						<h1>You will be redirected shortly!</h1>
+					</div>
+					<div>
+						{text}
+						<a className="link" href="https://listenin.us/">here!</a>
+					</div>
+				</Card.Body>
+			</Card>
 		</div>
 	)
 }
