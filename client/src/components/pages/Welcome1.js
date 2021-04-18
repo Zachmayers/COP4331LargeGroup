@@ -11,7 +11,7 @@ import './Style/Header.css';
 function Welcome1(props) {
     const [open, setOpen] = useState(false);
     const [verticalOpen, setVerticalOpen] = useState(false);
-    
+
     let starting = 'welcome'
     // this is in case we try to have a link to sign up
     // and/or log in from other places in the website
@@ -23,8 +23,13 @@ function Welcome1(props) {
     function showWelcome() {
         setTerm('welcome')
     }
+
     function showLogIn() {
         setTerm('login')
+    }
+
+    function showLogInWithMessage() {
+        setTerm('loginwithmessage')
     }
 
     function showSignUp() {
@@ -62,9 +67,19 @@ function Welcome1(props) {
                 <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} />
             )
         }
+        if (term == 'loginwithmessage') {
+            return (
+                <div>
+                    <div>
+                        Account Successfully Created
+                    </div>
+                    <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} />
+                </div>
+            )
+        }
         if (term == 'signup') {
             return (
-                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome} />
+                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome} showLogInWithMessage={showLogInWithMessage} />
             )
         }
         if (term == 'passwordreset') {

@@ -32,20 +32,23 @@ const SignupSchema = Yup.object().shape({
                              .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
-function doSubmit(data){     
-    async function doSignUp() {
-      try {
-        const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
-         //props.history.push(`/articles/${response.data._id}`);  
-      } catch(error) {
-        console.log('error', error);
-      }
+
+function Signup(props) {  
+    
+    function doSubmit(data){     
+        async function doSignUp() {
+          try {
+            const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
+            if (response.data.success)   {
+                props.showLogInWithMessage()
+            }
+          } catch(error) {
+            console.log('error', error);
+          }
+        }
+        doSignUp();
     }
-    doSignUp();
-}
 
-
-function Signup(props) {    
     return (
         <Formik
             validationSchema={SignupSchema}

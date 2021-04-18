@@ -35,7 +35,7 @@ function PasswordReset(props) {
                 setSuccess(true)
                 setFailure(false)
                 setTimeout(function () {
-                    window.location.href = 'https://listenin.us/TopTracks'
+                    window.location.href = 'https://listenin.us/'
                 }, 5000);
             } else {
                 setSuccess(false)
@@ -53,7 +53,7 @@ function PasswordReset(props) {
     function ResultMessage() {
         if (success) {
             return(
-                <div>
+                <div className="welcomeText">
                     <div>
                         Success!
                     </div>
@@ -76,77 +76,87 @@ function PasswordReset(props) {
         }
     }
 
+    function HideOnSuccess() {
+        if(success) {
+            return(
+                <ResultMessage />
+            )
+        } else {
+            return(
+                <Formik
+                    validationSchema={newPasswordSchema}
+                    onSubmit={doSubmit}
+                    initialValues={{
+                        password: '',
+                        passwordConfirmation: ''
+                    }}
+                >
+                    {({
+                        handleSubmit,
+                        handleChange,
+                        handleBlur,
+                        values,
+                        touched,
+                        isValid,
+                        errors,
+                    }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <div className="welcomeText">
+                                New Password
+                            </div>
+                            <div>
+                                Please enter a new password
+                            </div>
+                            <InputGroup hasValidation>
+                                <Form.Group controlId="formPassword">
+                                    <Form.Control
+                                        placeholder="Password"
+                                        type="password"
+                                        name="password"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        isInvalid={touched.password && !!errors.password}
+                                        isValid={touched.password && !errors.password}
+                                        />
+                                    <Form.Control.Feedback type="invalid" className="errorMessage">
+                                        {errors.password}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </InputGroup>
+                            <InputGroup hasValidation>
+                                <Form.Group controlId="formPasswordConfirmation">
+                                    <Form.Control
+                                        placeholder="Confirm Password"
+                                        type="password"
+                                        name="passwordConfirmation"
+                                        value={values.passwordConfirmation}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
+                                        isValid={touched.passwordConfirmation && !errors.passwordConfirmation}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.passwordConfirmation}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </InputGroup>
+                            <ResultMessage />
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            )
+        }
+    }
+
     return (
         <div className="banner background-banner" >
             <Card className="centerCard">
                 <Card.Body>            
-                    <Formik
-                        validationSchema={newPasswordSchema}
-                        onSubmit={doSubmit}
-                        initialValues={{
-                            password: '',
-                            passwordConfirmation: ''
-                        }}
-                    >
-                        {({
-                            handleSubmit,
-                            handleChange,
-                            handleBlur,
-                            values,
-                            touched,
-                            isValid,
-                            errors,
-                        }) => (
-                            <Form noValidate onSubmit={handleSubmit}>
-                                <div className="welcomeText">
-                                    New Password
-                                </div>
-                                <div>
-                                    Please enter a new password
-                                </div>
-                                <InputGroup hasValidation>
-                                    <Form.Group controlId="formPassword">
-                                        <Form.Control
-                                            placeholder="Password"
-                                            type="password"
-                                            name="password"
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            isInvalid={touched.password && !!errors.password}
-                                            isValid={touched.password && !errors.password}
-                                            />
-                                        <Form.Control.Feedback type="invalid" className="errorMessage">
-                                            {errors.password}
-                                        </Form.Control.Feedback>
-                                    </Form.Group>
-                                </InputGroup>
-                                <InputGroup hasValidation>
-                                    <Form.Group controlId="formPasswordConfirmation">
-                                        <Form.Control
-                                            placeholder="Confirm Password"
-                                            type="password"
-                                            name="passwordConfirmation"
-                                            value={values.passwordConfirmation}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
-                                            isValid={touched.passwordConfirmation && !errors.passwordConfirmation}
-                                        />
-                                        <Form.Control.Feedback type="invalid">
-                                            {errors.passwordConfirmation}
-                                        </Form.Control.Feedback>
-                                    </Form.Group>
-                                </InputGroup>
-                                <ResultMessage />
-                                <ButtonGroup>
-                                    <Button variant="primary" type="submit">
-                                        Submit
-                                    </Button>
-                                </ButtonGroup>
-                            </Form>
-                        )}
-                    </Formik>
+                    <HideOnSuccess />
                 </Card.Body>
             </Card>
         </div>
