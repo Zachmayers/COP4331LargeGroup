@@ -36,7 +36,8 @@ const SignupSchema = Yup.object().shape({
 function Signup(props) {  
     const [success, setSuccess] = useState(false)
     const [failure, setFailure] = useState(false)
-    const [errorMsg, setErrorMsg] = useState('')
+    const [errorMsg, setErrorMsg] = useState('Username already exists')
+	const text = 'If you are not being redirected click '
     
     function doSubmit(data){     
         async function doSignUp() {
@@ -44,6 +45,9 @@ function Signup(props) {
             const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
             if (response.data.success)   {
                 setSuccess(true)
+                setTimeout(function () {
+                    window.location.href = 'https://listenin.us/'
+                }, 5000);
             }
           } catch(error) {
             setFailure(true)
@@ -70,13 +74,17 @@ function Signup(props) {
     function DisplayOnSuccess() {
         if (success) {
             return (
-                <div className="welcomeText">
-                    <div>
-                        Account Successfully Created
+                <div>
+                    <div className="welcomeText">
+                        Account Successfully Created!
+                    </div>
+                    <div className="welcomeText">
+                        We have sent you an email to verify your account!
                     </div>
                     <div>
-                        We have sent you an email to verify your account
-                    </div>
+						{text}
+						<a className="link" href="https://listenin.us/">here!</a>
+					</div>
                 </div>
             )
         } else {
@@ -119,9 +127,6 @@ function Signup(props) {
                                         isInvalid={touched.firstName && !!errors.firstName}
                                         isValid={touched.firstName && !errors.firstName}
                                     />
-                                    {/* <Form.Control.Feedback type="invalid">
-                                        {errors.firstName}
-                                    </Form.Control.Feedback> */}
                                 </Form.Group>
                             </InputGroup>
                             <InputGroup hasValidation as={Col}>
