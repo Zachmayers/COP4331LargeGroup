@@ -20,6 +20,7 @@ import TopTracks from './components/pages/TopTracks';
 import TopTracksArtist from './components/pages/TopTracksArtist';
 import DiscoverNew from './components/pages/DiscoverNew';
 import Token from './components/auth/Token';
+import NewPassword from './components/pages/NewPassword';
 import localStorage from 'local-storage';
 import About from './components/pages/About'
 
@@ -101,6 +102,7 @@ function Main(props) {
       <Route exact path="/DiscoverNew" render={(p) => <DiscoverNew {...p} user={props.user} />} />
       <Route path="/TopTracksArtist/:id/:name" render={(p) => <TopTracksArtist {...p} user={props.user}/>} />
       <Route path="/verify" component={Token} />
+      <Route path="/reset" component={NewPassword} />
     </Switch>
 
   );

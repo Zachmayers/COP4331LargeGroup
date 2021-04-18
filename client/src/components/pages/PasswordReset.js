@@ -8,7 +8,7 @@ import './Style/Header.css';
 
 
 
-const SignupSchema = Yup.object().shape({
+const resetSchema = Yup.object().shape({
     email: Yup.string()
               .email('Please input a proper email')
               .required('No email provided')
@@ -62,7 +62,7 @@ function PasswordReset(props) {
 
     return (
         <Formik
-            validationSchema={SignupSchema}
+            validationSchema={resetSchema}
             onSubmit={doSubmit}
             initialValues={{
                 email: ''
