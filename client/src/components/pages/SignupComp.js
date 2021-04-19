@@ -48,6 +48,9 @@ function Signup(props) {
                 setTimeout(function () {
                     window.location.href = 'https://listenin.us/'
                 }, 5000);
+            } else {
+                setFailure(true)
+                setErrorMsg(response.data.error)
             }
           } catch(error) {
             setFailure(true)

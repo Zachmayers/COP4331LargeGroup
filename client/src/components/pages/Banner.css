@@ -181,3 +181,28 @@
 .artist-card:hover .songImage{
     height:190px
 }
+
+.search-table{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 70%;
+}
+
+.search-bar{
+    width:300%;
+}
+
+.switch-button{
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-row{
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

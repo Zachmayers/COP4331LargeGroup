@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import Switch from "react-switch";
+import { Formik, ErrorMessage } from 'formik';
+import { Card, Col, Form, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import './Style/Header.css';
 import './Banner.css';
 import localStorage from 'local-storage';
@@ -14,24 +16,97 @@ export default function DiscoverNew(props) {
     'Authorization'
   ] = `Bearer ${access_token}`;
 
-  const [term, setTerm] = React.useState('long')
+  const [term, setTerm] = React.useState('Song')
+  const [searchTerm, setSearchTerm] = React.useState('')
+  const [checked, setChecked] = React.useState(false);
 
-  function showLong(){
+  function showArtist(){
     loaded = false;
-    setTerm('long');
-  }
-  function showMedium(){
-    loaded = false;
-    setTerm('medium');
+    setTerm('Artist');
   }
 
-  function showShort(){
+  function showSong(){
     loaded = false;
-    setTerm('short');
+    setTerm('Song');
   }
 
   function artistTop(id, name){
     props.history.push(`/TopTracksArtist/${id}/${name}`)
+  }
+
+  function searchApiCall(data) {
+    setSearchTerm(data.search)
+    axios.get()
+  }
+
+  const SwitchButton = () => {
+    
+    const handleChange = nextChecked => {
+      setChecked(nextChecked);
+      if (checked) {
+        showArtist()
+      } else {
+        showSong()
+      }
+    };
+  
+    return (
+        <div className="switch-button">
+          Artist
+        <Switch
+          onChange={handleChange}
+          checked={checked}
+          onColor="#1ecd97"
+          offColor="#1ecd97"
+          handleDiameter={30}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+          height={20}
+          width={48}
+        />
+        Song
+        </div>
+    );
+  };
+
+  function Search() {
+    return (
+      <Formik
+      onBlur={searchApiCall}
+      initialValues={{
+          search: ''
+      }}
+      >
+        {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                touched,
+                isValid,
+                errors,
+            }) => (
+              <Form noValidate>
+                <InputGroup>
+                    <Form.Group controlId="formSearch">
+                        <Form.Control
+                            // class="form-control transparent-input"
+                            placeholder= {`Search By ${term}!`}
+                            type="text"
+                            name="search"
+                            value={values.search}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Group>
+                    <SwitchButton />
+                </InputGroup>
+            </Form>
+            )}
+      </Formik>
+    )
   }
 
   if(!loaded)
@@ -53,7 +128,6 @@ export default function DiscoverNew(props) {
           </div>
         )
       })
-
       setCards(tempCards)
     })
     .catch(error => {
@@ -62,10 +136,11 @@ export default function DiscoverNew(props) {
   
   return (
       <div className="background-banner">
-                <table ><tbody>
-                  <tr ><th><h1 className="text-white">DISCOVER NEW MUSIC</h1></th></tr>
-                  
-                  </tbody></table>
+        <table className="search-table"><tbody>
+          <tr><th><h1 className="text-white">DISCOVER NEW MUSIC</h1></th></tr>
+          <tr className="search-row"><th><Search /></th></tr>
+        </tbody></table>
       </div>
     );
 }
+

@@ -82,7 +82,7 @@ function HomeNavbar(props) {
           :
           <ul className="navbar-nav ml-auto">
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
-        </ul>
+          </ul>
         }
       </div>
     </nav>
@@ -91,7 +91,6 @@ function HomeNavbar(props) {
 
 function Main(props) {
   return(
-
     <Switch>
         <Route exact path="/" render={(p) => <Home {...p} user={props.user} />} />
     <Route exact path="/NowPlaying" component={NowPlaying} />
@@ -104,7 +103,6 @@ function Main(props) {
       <Route path="/verify" component={Token} />
       <Route path="/reset" component={NewPassword} />
     </Switch>
-
   );
 }
 
