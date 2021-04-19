@@ -138,7 +138,7 @@ export default function DiscoverNew(props) {
       <div className="background-banner">
         <table className="search-table"><tbody>
           <tr><th><h1 className="text-white">DISCOVER NEW MUSIC</h1></th></tr>
-          <tr className="search-row"><th><Search /></th></tr>
+          <tr className="search-row"><Search /></tr>
         </tbody></table>
       </div>
     );
