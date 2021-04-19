@@ -36,7 +36,8 @@ export default function DiscoverNew(props) {
 
   function searchApiCall(data) {
     setSearchTerm(data.search)
-    axios.get()
+    // let type = checked ? 
+    // axios.get(`https://api.spotify.com/v1/search?q=${data.search}&type=${}`)
   }
 
   const SwitchButton = () => {
