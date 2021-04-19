@@ -9,8 +9,6 @@ import PasswordReset from './PasswordReset';
 import './Style/Header.css';
 
 function Welcome1(props) {
-    const [open, setOpen] = useState(false);
-    const [verticalOpen, setVerticalOpen] = useState(false);
 
     let starting = 'welcome'
     // this is in case we try to have a link to sign up

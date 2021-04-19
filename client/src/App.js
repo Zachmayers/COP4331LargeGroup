@@ -69,20 +69,22 @@ function HomeNavbar(props) {
         <a className="navbar-brand text-white" href="#">Listen In</a>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/About">About Us</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopArtists">Top Artists</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopTracks">Top Tracks</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/DiscoverNew">Discover New Music</NavLink></li>
+          {props.user.id ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopArtists">Top Artists</NavLink></li> : ""}
+          {props.user.id ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopTracks">Top Tracks</NavLink></li>:""}
+          {props.user.id ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/DiscoverNew">Discover New Music</NavLink></li>:""}
         </ul>
         {
-          props.user.name ?
+          props.user.id ?
           <ul className="navbar-nav ml-auto">
             <li className="navbar-brand text-white">{props.user.name}</li>
             <li className="nav-item"><a className="nav-link" href="javascript:void(null);" onClick={logOut}>Log out</a></li>
-          </ul>
-          :
-          <ul className="navbar-nav ml-auto">
           <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
           </ul>
+          : ""
+          // <ul className="navbar-nav ml-auto">
+          // <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Login">Log in to Spotify</NavLink></li>
+          // </ul> 
+          
         }
       </div>
     </nav>

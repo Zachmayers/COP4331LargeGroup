@@ -54,7 +54,6 @@ function Signup(props) {
             }
           } catch(error) {
             setFailure(true)
-            setErrorMsg(error)
             console.log('error', error);
           }
         }

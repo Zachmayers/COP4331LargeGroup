@@ -18,9 +18,13 @@ function doSubmit(data){
     async function doLogIn() {
       try {
         const response = await post('/api/Login', {Username: data.username, Password: data.password}); 
-         //props.history.push(`/articles/${response.data._id}`);  
-        localStorage.set("userId", response.data._id)
-        localStorage.set("loginToken", response.data)
+        if(response.data.token) {
+            localStorage.set("userId", response.data.user.id)
+            localStorage.set("loginToken", response.data)
+            window.location.href = 'https://listenin.us/Login/'
+        } else {
+            console.log(response.data.error)
+        }
       } catch(error) {
         console.log('error', error);
       }
