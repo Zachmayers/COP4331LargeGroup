@@ -5,10 +5,14 @@ import { Formik, ErrorMessage } from 'formik';
 import { Card, Col, Form, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import './Style/Header.css';
 import './Banner.css';
-import localStorage from 'local-storage';
 
 export default function DiscoverNew(props) {
-  const access_token = localStorage.get("userToken")
+
+  if (!localStorage.getItem("user")) {
+    props.history.push("/")
+  }
+
+  const access_token = localStorage.getItem("userToken")
   const [cards, setCards] = React.useState('')
   var loaded = false;
 

@@ -8,7 +8,6 @@
 // import ListenIn from "../ListenIn";
 // import Title from "../Title";
 // import Background from "../Background";
-// import localStorage from 'local-storage';
 
 // class Login extends Component {
 //   constructor() {
@@ -35,7 +34,7 @@
   // componentDidMount() {
   //   // Set token
   //   let _token = hash.access_token;
-  //   localStorage.set("userToken",_token)
+  //   localStorage.setItem("userToken",_token)
   //   console.log(_token);
   //   if (_token) {
   //     // Set token

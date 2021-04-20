@@ -3,7 +3,6 @@ import { Container, Row, Col, Form, Button, ButtonGroup, InputGroup } from 'reac
 import { post } from 'axios';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import localStorage from 'local-storage';
 import './Style/Header.css';
 
 

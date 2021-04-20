@@ -9,21 +9,27 @@ import Title from './Title.js';
 import ListenIn from './ListenIn.js';
 import Background from './Background';
 import Player from './Player';
-import localStorage from 'local-storage';
 import TopTracks from './TopTracks';
 
-function Home() { 
+function Home(props) { 
+
+  // if (props.user.id) {
+	// 	props.history.push('/TopTracks')
+	// }
+  if (localStorage.getItem("user")) {
+    props.history.push('/TopTracks')
+  }
 
   return (
     <div>
-      <Banner/>
+      <Banner user={props.user} setUser={props.setUser}/>
     </div>
   );
 }
 
 /* function TopPublic(){
 
-  const access_token = localStorage.get("userToken")
+  const access_token = rage.get("userToken")
   const [cards, setCards] = React.useState('')
 
   axios.defaults.headers.common[

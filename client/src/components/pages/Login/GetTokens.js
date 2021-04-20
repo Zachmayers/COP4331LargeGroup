@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { redirectUri } from './config';
-import localStorage from 'local-storage';
 
 export default function GetToken() {
-    const authToken = localStorage.get("authToken")
-    const code = localStorage.get("authCode")
+    const authToken = localStorage.getItem("authToken")
+    const code = localStorage.getItem("authCode")
     if (authToken) {
         axios('https://accounts.spotify.com/api/token', {
             headers: {

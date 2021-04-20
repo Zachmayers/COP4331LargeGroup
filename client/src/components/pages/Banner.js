@@ -5,12 +5,12 @@ import Title from './Title.js';
 import './Banner.css'
 import fondo from './fondo.jpg';
 
-function Banner() {
+function Banner(props) {
 
     return (
         <div className="banner background-banner" >
             {/* <Title /> */}
-            <Welcome1 />
+            <Welcome1 user={props.user} setUser={props.setUser}/>
         </div>
     );
 }

@@ -3,7 +3,6 @@ import { Container, Card, Row, Col, Form, Button, ButtonGroup, InputGroup } from
 import { post } from 'axios';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import localStorage from 'local-storage';
 import './Style/Header.css';
 
 
@@ -22,6 +21,11 @@ const newPasswordSchema = Yup.object().shape({
 });
 
 function PasswordReset(props) {
+
+    if (localStorage.getItem("user")) {
+        props.history.push('/TopTracks')
+    }
+
     const token = window.location.pathname.split("/")[2]
 
     const [success, setSuccess] = useState(false)

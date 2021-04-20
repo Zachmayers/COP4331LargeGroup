@@ -58,12 +58,12 @@ function Welcome1(props) {
         }
         if (term == 'login') {
             return (
-                <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} />
+                <LoginComp showSignUp={showSignUp} showWelcome={showWelcome} showPasswordReset={showPasswordReset} user={props.user} setUser={props.setUser} />
             )
         }
         if (term == 'signup') {
             return (
-                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome}/>
+                <SignupComp showLogIn={showLogIn} showWelcome={showWelcome} />
             )
         }
         if (term == 'passwordreset') {

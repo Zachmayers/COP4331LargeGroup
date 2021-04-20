@@ -6,7 +6,12 @@ import axios from 'axios';
 import { render } from "react-dom";
 import '../pages/Style/Header.css';
 
-export default function Token() {
+export default function Token(props) {
+	
+	if (localStorage.getItem("user")) {
+		props.history.push('/TopTracks')
+	}
+
 	const token = window.location.pathname.split("/")[2]
 	const text = 'If you are not being redirected click '
 	if (token) {

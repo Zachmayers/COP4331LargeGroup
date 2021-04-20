@@ -3,7 +3,6 @@ import { Container, Row, Col, Form, Button, ButtonGroup, InputGroup } from 'reac
 import { post } from 'axios';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import localStorage from 'local-storage';
 import './Style/Header.css';
 
 
@@ -14,27 +13,28 @@ const SignupSchema = Yup.object().shape({
                  .required('Please Enter a password')
 });
 
-function doSubmit(data){     
-    async function doLogIn() {
-      try {
-        const encryptedPassword = btoa(data.password)
-        const response = await post('/api/Login', {Username: data.username, Password: encryptedPassword}); 
-        if(response.data.token) {
-            localStorage.set("userId", response.data.user.id)
-            localStorage.set("loginToken", response.data)
-            window.location.href = 'https://listenin.us/Login/'
-        } else {
-            console.log(response.data.error)
-        }
-      } catch(error) {
-        console.log('error', error);
-      }
-    }
-    doLogIn();
-}
-
-
 function LoginComp(props) {
+    function doSubmit(data){     
+        async function doLogIn() {
+          try {
+            const encryptedPassword = btoa(data.password)
+            const response = await post('/api/Login', {Username: data.username, Password: encryptedPassword}); 
+            if(response.data.token) {
+                // props.setUser(response.data.user)
+                
+                localStorage.setItem("userId", response.data.user.id)
+                localStorage.setItem("user", response.data.user.name)
+                window.location.href = 'https://listenin.us/Login/'
+            } else {
+                console.log(response.data.error)
+            }
+          } catch(error) {
+            console.log('error', error);
+          }
+        }
+        doLogIn();
+    }
+    
     return (
         <Formik
             validationSchema={SignupSchema}

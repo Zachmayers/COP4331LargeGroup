@@ -8,6 +8,11 @@ import './Style/Header.css';
 import './Banner.css';
 
 export default function TopTracksArtist(props) {
+
+  if (!localStorage.getItem("user")) {
+    props.history.push("/")
+  }
+
   const [cards, setCards] = React.useState('')
   const [artistName, setArtistName] = React.useState('')
 

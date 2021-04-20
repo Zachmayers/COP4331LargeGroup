@@ -38,6 +38,7 @@
 
 
 .div-titles{
+    color: #164e3c;
     float: left;
     margin-left: 3vw;
     padding-top: 30px;
@@ -51,7 +52,7 @@
     writing-mode: vertical-rl;
     text-orientation: mixed;
     cursor: pointer;
-    color: #007bff;
+    color: #1ecd97;
     text-decoration: none;
     background-color: transparent;
 }

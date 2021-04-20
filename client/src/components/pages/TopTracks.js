@@ -2,12 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { BsPlayFill, BsPauseFill } from 'react-icons/bs';
 import { Card } from 'react-bootstrap';
-import localStorage from 'local-storage';
 import './Style/Header.css';
 import './Banner.css';
 
 export default function TopTracks(props) {
-  const access_token = localStorage.get("userToken")
+
+  if (!localStorage.getItem("user")) {
+    props.history.push("/")
+  }
+
+  const access_token = localStorage.getItem("userToken")
   const [cards, setCards] = React.useState('')
   var loaded = false;
 
@@ -78,8 +82,8 @@ export default function TopTracks(props) {
                       <td className="div-titles">
                         <table><tbody>
                           <tr height="150px"><td><a className={(term == "long" ? "active " : "") + "nav-link vertical-title"} onClick={showLong}>All Time</a></td></tr>
-                          <tr height="150px"><td><a className={(term == "short" ? "active " : "") + "nav-link vertical-title"} onClick={showShort}>This Month</a></td></tr>
                           <tr height="150px"><td><a className={(term == "medium" ? "active " : "") + "nav-link vertical-title"} onClick={showMedium}>Last 6 Months</a></td></tr>
+                          <tr height="150px"><td><a className={(term == "short" ? "active " : "") + "nav-link vertical-title"} onClick={showShort}>This Month</a></td></tr>
                         </tbody></table>
                       </td>
                       <td className="div-top-results">
@@ -113,8 +117,6 @@ const useAudio = () => {
     },
     [playing]
   );
-
-
 
   return [currentUrl, playing, toggle];
 };

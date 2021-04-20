@@ -2,9 +2,13 @@ import React from 'react';
 import hash from "./Hash";
 import GetTokens from "./GetTokens";
 import { authEndpoint, clientId, redirectUri, scopes } from './config';
-import localStorage from 'local-storage';
 
-export default function SpotifyAuth() {
+export default function SpotifyAuth(props) {
+
+    if (!localStorage.getItem("user")) {
+      props.history.push('/')
+    }
+
     window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
       "%20"
     )}&response_type=token&show_dialog=true`
@@ -13,14 +17,14 @@ export default function SpotifyAuth() {
 
     if (authToken) {
       // Set token
-      localStorage.set("userToken", authToken)
+      localStorage.setItem("userToken", authToken)
       // window.location.href = 'http://localhost:3000/'
       window.location.href = 'https://listenin.us/TopTracks'
     }
 }
 
 // export default function SpotifyAuth() {
-//   if (!localStorage.get("userToken")) {
+//   if (!localStorage.getItem("userToken")) {
 //     window.location.href = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
 //       "%20"
 //     )}&response_type=token&show_dialog=true`
@@ -29,7 +33,7 @@ export default function SpotifyAuth() {
 
 //     if (authToken) {
 //       // Set token
-//       localStorage.set("userToken", authToken)
+//       localStorage.setItem("userToken", authToken)
 //     }
 //   } else {
 //       window.location.href = 'http://localhost:3000/'
