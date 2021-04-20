@@ -18,7 +18,6 @@ function doSubmit(data){
     async function doLogIn() {
       try {
         const encryptedPassword = btoa(data.password)
-        console.log(encryptedPassword)
         const response = await post('/api/Login', {Username: data.username, Password: encryptedPassword}); 
         if(response.data.token) {
             localStorage.set("userId", response.data.user.id)

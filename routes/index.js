@@ -26,9 +26,12 @@ router.post('/Signup',(req,res)=>{
         if(savedUser){
             return res.status(442).json({error:"Username Taken"})
         }
+        console.log("about to hash")
+        bcrypt.hash(Password,12)
+        .then(hashedPassword=>{
             const Users = new User({
                 Username,
-                Password,
+                Password:hashedPassword,
                 Email,
                 FirstName,
                 LastName,
@@ -71,6 +74,7 @@ router.post('/Signup',(req,res)=>{
             .catch(err=>{
                 console.log(err)
             })
+        })
     })
 })
 
@@ -95,8 +99,9 @@ router.post('/Login',(req,res)=>{
             return res.status(442).json({error:"the user is not verified"})
         }
         //console.log(Password + "  saved   " + savedUser.Password)
-        const doMatch = Password.localeCompare(savedUser.Password)
-            if(doMatch == 0){
+        bcrypt.compare(Password,savedUser.Password)
+        .then(doMatch=>{
+            if(doMatch){
                 //res.json({msg:"successfully signed in"})
                 const token = jwt.sign(
                     {_id:savedUser._id},
@@ -120,6 +125,10 @@ router.post('/Login',(req,res)=>{
                 console.log("pass is scuffed")
                 return res.status(442).json({error:"Please add both Email and Password"})
             }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     })
 })
 
@@ -249,11 +258,15 @@ router.post('/newpassword', (req,res) => {
             console.log(user)
             return res.status(442).json({error: 'something done broke'})
         }
-        user.temporarytoken = false
-        user.save().then((saveduser)=>{
-           res.json({ success: true,
-                    message:"password updated success"})
-       })
+        bcrypt.hash(newPassword,12)
+        .then(hashedPassword=>{
+            user.Password = hashedPassword
+            user.temporarytoken = false
+            user.save().then((saveduser)=>{
+               res.json({ success: true,
+                        message:"password updated success"})
+           })
+        })
     })
 })
 
