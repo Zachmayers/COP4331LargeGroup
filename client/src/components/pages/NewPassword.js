@@ -30,22 +30,23 @@ function PasswordReset(props) {
     function doSubmit(data){     
         async function resetPassword() {
             try {
-                const response = await post('/api/newpassword', {Password: btoa(data.password), Token: token});
-            if (response.data.success == true) {
-                setSuccess(true)
-                setFailure(false)
-                setTimeout(function () {
-                    window.location.href = 'https://listenin.us/'
-                }, 5000);
-            } else {
+                const encryptedPassword = btoa(data.password)
+                const response = await post('/api/newpassword', {Password: encryptedPassword, Token: token});
+                if (response.data.success == true) {
+                    setSuccess(true)
+                    setFailure(false)
+                    setTimeout(function () {
+                        window.location.href = 'https://listenin.us/'
+                    }, 5000);
+                } else {
+                    setSuccess(false)
+                    setFailure(true)
+                }
+            } catch(error) {
                 setSuccess(false)
                 setFailure(true)
+                console.log('error', error);
             }
-          } catch(error) {
-            setSuccess(false)
-            setFailure(true)
-            console.log('error', error);
-          }
         }
         resetPassword();
     }

@@ -17,7 +17,9 @@ const SignupSchema = Yup.object().shape({
 function doSubmit(data){     
     async function doLogIn() {
       try {
-        const response = await post('/api/Login', {Username: data.username, Password: btoa(data.password)}); 
+        const encryptedPassword = btoa(data.password)
+        console.log(encryptedPassword)
+        const response = await post('/api/Login', {Username: data.username, Password: encryptedPassword}); 
         if(response.data.token) {
             localStorage.set("userId", response.data.user.id)
             localStorage.set("loginToken", response.data)
