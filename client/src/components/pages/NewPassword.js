@@ -30,7 +30,7 @@ function PasswordReset(props) {
     function doSubmit(data){     
         async function resetPassword() {
             try {
-                const response = await post('/api/newpassword', {Password: data.password, Token: token});
+                const response = await post('/api/newpassword', {Password: btoa(data.password), Token: token});
             if (response.data.success == true) {
                 setSuccess(true)
                 setFailure(false)

@@ -42,7 +42,7 @@ function Signup(props) {
     function doSubmit(data){     
         async function doSignUp() {
           try {
-            const response = await post('/api/Signup', {Username: data.username, Password: data.password, Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
+            const response = await post('/api/Signup', {Username: data.username, Password: btoa(data.password), Email: data.email, FirstName: data.firstName, LastName: data.lastName}); 
             if (response.data.success)   {
                 setSuccess(true)
                 setTimeout(function () {
