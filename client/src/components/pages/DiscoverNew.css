@@ -251,9 +251,6 @@
     justify-content: flex-start;
     align-items: center;
 }
-.form-row{
-    display:grid;
-}
 
 .live-search-field{
     height: 45px;
@@ -261,13 +258,6 @@
 }
 .live-search-field:focus{
     outline: none;
-}
-
-.form-control {
-    width: 100%;
-}
-.form-group {
-    width: 60%;
 }
 
 .div-search-suggested{

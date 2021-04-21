@@ -8,9 +8,9 @@ import './DiscoverNew.css';
 
 export default function DiscoverNew(props) {
 
-  if (!localStorage.getItem("user")) {
-    props.history.push("/")
-  }
+  // if (!localStorage.getItem("user")) {
+  //   props.history.push("/")
+  // }
 
   const access_token = localStorage.getItem("userToken")
   const [matchCards, setMatchCards] = React.useState('')
