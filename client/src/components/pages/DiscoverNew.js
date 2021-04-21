@@ -4,8 +4,8 @@ import Switch from "react-switch";
 import { Formik, ErrorMessage } from 'formik';
 import { Container, Card, Col, Form, Row, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import './Style/Header.css';
-import './Banner.css';
-import localStorage from 'local-storage';
+// import './Banner.css';
+// import localStorage from 'local-storage';
 
 export default function DiscoverNew(props) {
 
@@ -13,7 +13,7 @@ export default function DiscoverNew(props) {
   //   props.history.push("/")
   // }
 
-  const access_token = localStorage.get("userToken")
+  const access_token = localStorage.getItem("userToken")
   const [matchCards, setMatchCards] = React.useState('')
   const [suggestedCards, setSuggestedCards] = React.useState('')
   var loaded = false;
