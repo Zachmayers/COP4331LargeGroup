@@ -14,6 +14,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 function LoginComp(props) {
+    const [errorMsg, setErrorMsg] = useState('')
     function doSubmit(data){     
         async function doLogIn() {
           try {
@@ -24,9 +25,11 @@ function LoginComp(props) {
                 localStorage.setItem("user", response.data.user.name)
                 window.location.href = 'https://listenin.us/Login/'
             } else {
+                setErrorMsg('Username or Password incorrect')
                 console.log(response.data.error)
             }
           } catch(error) {
+              setErrorMsg('Username or Password incorrect')
             console.log('error', error);
           }
         }
@@ -87,6 +90,7 @@ function LoginComp(props) {
                             {errors.password}
                         </Form.Control.Feedback>
                     </Form.Group>
+                    <div>{errorMsg}</div>
                     <ButtonGroup>
                         <Button variant="primary" type="submit">
                             Submit

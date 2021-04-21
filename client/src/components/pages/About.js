@@ -10,7 +10,7 @@ import Banner from './Banner';
 
 function About() { 
   return (
-    <div>
+    <div className="background-div">
       <div>
         <div className="row">
         {/* <div className="col xs-4 sm-4 md-6 lg-8 xl-10"> */}
@@ -26,7 +26,7 @@ function About() {
         </div>
        
       </div>
-      <Background />
+      <Background/>
     </div>
   );
 }
