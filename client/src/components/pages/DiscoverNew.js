@@ -4,14 +4,13 @@ import Switch from "react-switch";
 import { Formik, ErrorMessage } from 'formik';
 import { Container, Card, Col, Form, Row, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import './Style/Header.css';
-// import './Banner.css';
-// import localStorage from 'local-storage';
+import './DiscoverNew.css';
 
 export default function DiscoverNew(props) {
 
-  // if (!localStorage.getItem("user")) {
-  //   props.history.push("/")
-  // }
+  if (!localStorage.getItem("user")) {
+    props.history.push("/")
+  }
 
   const access_token = localStorage.getItem("userToken")
   const [matchCards, setMatchCards] = React.useState('')
@@ -88,8 +87,8 @@ export default function DiscoverNew(props) {
                         <img src={item.images[0].url} className="searchPic"/>
                       </div>
                       <div className="col-md-8">
-                        <div className="card-body">
-                          <p className="card-title">{item.name}</p>
+                      <div className="card-body smallCard">
+                          <p className="card-title smallCardTitle">{item.name}</p>
                         </div>
                       </div>
                     </div>
@@ -107,8 +106,8 @@ export default function DiscoverNew(props) {
                       <img src={item.album.images[0].url} className="searchPic"/>
                     </div>
                     <div className="col-md-8">
-                      <div className="card-body">
-                        <p className="card-title">{item.name}</p>
+                    <div className="card-body smallCard">
+                          <p className="card-title smallCardTitle">{item.name}</p>
                       </div>
                     </div>
                   </div>
@@ -170,7 +169,6 @@ export default function DiscoverNew(props) {
     return (
       <div>
         <input
-          className="discoverSearch"
           autoFocus
           type='text'
           autoComplete='off'
@@ -241,26 +239,22 @@ export default function DiscoverNew(props) {
     //                 {suggestedCards}
     //               </div>
     //           </Col>
-    //           <Col sm={4} className = "col-filter">
-
-    //           </Col>
     //       </Row>
     // </Container>
 
 
 
       <div className="background-banner">
-        <Form className="search-table">
-          <Form.Row>
-            <Col>
+        <div className="search-title">
               <h1 className="text-white">DISCOVER NEW MUSIC</h1>
-            </Col>
-          </Form.Row>
-         <Form.Row className="search-row">
-           <SearchTry />
-           <SwitchButton />
-         </Form.Row>
-      </Form>
+        </div>
+        <div className="search-row">
+            <SearchTry />
+            <SwitchButton />
+        </div>
+        <div>
+          {matchCards ? <div className="small-text">Select a{term=='Artist' ? "n" : ""} {term}:</div> : ""}
+        </div>
         <div className="div-search-suggested">
           {matchCards}
         </div>

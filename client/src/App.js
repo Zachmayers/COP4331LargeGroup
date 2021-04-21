@@ -22,6 +22,7 @@ import DiscoverNew from './components/pages/DiscoverNew';
 import Token from './components/auth/Token';
 import NewPassword from './components/pages/NewPassword';
 import About from './components/pages/About'
+import Delete from './components/pages/Delete'
 
 function App() {
   const [user, setUser] = useState({});
@@ -63,6 +64,7 @@ function HomeNavbar(props) {
     function logOut() {
       props.setUser({})
       localStorage.clear()
+      window.location = 'https://listenin.us'
     }
   const user = localStorage.getItem("user")
   return(
@@ -82,6 +84,7 @@ function HomeNavbar(props) {
           <ul className="navbar-nav ml-auto">
             <li className="navbar-brand text-white">{user}</li>
             <li className="nav-item"><a className="nav-link" href="javascript:void(null);" onClick={logOut}>Log out</a></li>
+            <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/Delete">Delete account</NavLink></li>
           </ul>
           : ""
           // <ul className="navbar-nav ml-auto">
@@ -107,6 +110,7 @@ function Main(props) {
       <Route path="/TopTracksArtist/:id/:name" render={(p) => <TopTracksArtist {...p} user={props.user}/>} />
       <Route path="/verify" render={(p) => <Token {...p} user={props.user}/>}/>
       <Route path="/reset" render={(p) => <NewPassword {...p} user={props.user}/>}/>
+      <Route path="/Delete" render={(p) => <Delete {...p} user={props.user} />} />
     </Switch>
   );
 }

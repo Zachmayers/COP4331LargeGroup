@@ -15,12 +15,13 @@ export default function TopTracksArtist(props) {
 
   const [cards, setCards] = React.useState('')
   const [artistName, setArtistName] = React.useState('')
+  var loaded = false;
 
   const [currentUrl, playing, toggle] = useAudio();
-
-  if (!artistName)
+  if (!loaded)
   axios.get('https://api.spotify.com/v1/artists/'+ props.match.params.id + '/top-tracks?market=US')
     .then((response) => {
+      loaded=true;
       let tempCards = []
       let index = 0;
       response.data.tracks.forEach((item) => {
@@ -57,7 +58,7 @@ export default function TopTracksArtist(props) {
   const history = useHistory()
 
   const goBack = () => {
-    history.goBack()
+    props.history.goBack()
   }
   
   return (
@@ -104,6 +105,47 @@ const useAudio = () => {
   );
 
 
-
   return [currentUrl, playing, toggle];
 };
+
+// savePlaylist(name, trackUris) {
+//   if (!name || !trackUris.length) {
+//     return;
+//   }
+
+//   const accessToken = Spotify.getAccessToken();
+//   const headers = { Authorization: `Bearer ${accessToken}` };
+//   let userID;
+
+//   return fetch('https://api.spotify.com/v1/me', { headers: headers })
+//     .then((response) => response.json())
+//     .then((jsonResponse) => {
+//       userID = jsonResponse.id;
+//       return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+//         method: 'POST',
+//         headers: headers,
+//         body: JSON.stringify({ name: name }),
+//       })
+//         .then((response) => response.json())
+//         .then((jsonResponse) => {
+//           const playlistID = jsonResponse.id;
+//           return fetch(
+//             `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+//             {
+//               method: 'POST',
+//               headers: headers,
+//               body: JSON.stringify({ uris: trackUris }),
+//             }
+//           );
+//         });
+//     });
+// };
+
+//onSave={this.savePlaylist} 
+// savePlaylist() {
+//    let trackUris = this.state.playlistTracks.map((track) => track.uri);
+//     Spotify.savePlaylist(this.state.playlistName, trackUris)
+//     .then(() => { 
+//       this.setState({ playlistName: 'New Playlist', playlistTracks: [] }); 
+//     }); 
+//   } 
