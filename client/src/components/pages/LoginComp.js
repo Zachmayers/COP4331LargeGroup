@@ -20,8 +20,6 @@ function LoginComp(props) {
             const encryptedPassword = btoa(data.password)
             const response = await post('/api/Login', {Username: data.username, Password: encryptedPassword}); 
             if(response.data.token) {
-                // props.setUser(response.data.user)
-                
                 localStorage.setItem("userId", response.data.user.id)
                 localStorage.setItem("user", response.data.user.name)
                 window.location.href = 'https://listenin.us/Login/'

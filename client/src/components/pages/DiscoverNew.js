@@ -2,25 +2,27 @@ import React from 'react';
 import axios from 'axios';
 import Switch from "react-switch";
 import { Formik, ErrorMessage } from 'formik';
-import { Card, Col, Form, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
+import { Container, Card, Col, Form, Row, Button, ButtonGroup, InputGroup } from 'react-bootstrap';
 import './Style/Header.css';
 import './Banner.css';
+import localStorage from 'local-storage';
 
 export default function DiscoverNew(props) {
 
-  if (!localStorage.getItem("user")) {
-    props.history.push("/")
-  }
+  // if (!localStorage.getItem("user")) {
+  //   props.history.push("/")
+  // }
 
-  const access_token = localStorage.getItem("userToken")
-  const [cards, setCards] = React.useState('')
+  const access_token = localStorage.get("userToken")
+  const [matchCards, setMatchCards] = React.useState('')
+  const [suggestedCards, setSuggestedCards] = React.useState('')
   var loaded = false;
 
   axios.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${access_token}`;
 
-  const [term, setTerm] = React.useState('Song')
+  const [term, setTerm] = React.useState('Artist')
   const [searchTerm, setSearchTerm] = React.useState('')
   const [checked, setChecked] = React.useState(false);
 
@@ -34,14 +36,90 @@ export default function DiscoverNew(props) {
     setTerm('Song');
   }
 
-  function artistTop(id, name){
-    props.history.push(`/TopTracksArtist/${id}/${name}`)
+  function getResults(value) {
+    let type = checked ? 'track' : 'artist'
+    let seed = checked ? `seed_tracks=${value}` : `seed_artists=${value}`
+    axios.get(`https://api.spotify.com/v1/recommendations?limit=40&market=US&${seed}`)
+      .then((response) => {
+        let tempCards = []
+        let index = 0
+        response.data.tracks.forEach((item) => {
+          index++;
+          tempCards.push(
+            <div key={item.id}>
+                <div className="card mb-3 seeMore resultCard" onClick={() => getResults(item.id)}>
+                  <div className="row no-gutters">
+                    <div className="col-md-2 resultPic">
+                      <img className="resultPic" src={item.album.images[0].url} class="card-img"/>
+                    </div>
+                    <div className="col-md-10">
+                      <div className="card-body">
+                        <h4 className="card-title">{index}.{item.name}</h4>
+                        <p className="card-title">{item.artists[0].name}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          )})
+        setSuggestedCards(tempCards)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+    });
   }
 
   function searchApiCall(data) {
-    setSearchTerm(data.search)
-    // let type = checked ? 
-    // axios.get(`https://api.spotify.com/v1/search?q=${data.search}&type=${}`)
+    setSearchTerm(data)
+    let type = checked ? 'track' : 'artist'
+    if(!loaded)
+    axios.get('https://api.spotify.com/v1/search?q='+ data +'&type='+ type +'&limit=5')
+      .then((response) => {
+        loaded = true;
+        let tempCards = []
+        type == "artist"
+        ? response.data.artists.items.forEach((item) => {
+          if (item.images[0]) {
+            tempCards.push(
+              <div key={item.id}>
+                  <div className="card mb-3 seeMore suggestedCard" onClick={() => getResults(item.id)}>
+                    <div className="row no-gutters">
+                      <div className="col-md-4">
+                        <img src={item.images[0].url} className="searchPic"/>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="card-body">
+                          <p className="card-title">{item.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            )
+          }
+          })
+        : response.data.tracks.items.forEach((item) => {
+          tempCards.push(
+            <div key={item.id}>
+                <div className="card mb-3 seeMore suggestedCard" onClick={() => getResults(item.id)}>
+                  <div className="row no-gutters">
+                    <div className="col-md-4">
+                      <img src={item.album.images[0].url} className="searchPic"/>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="card-body">
+                        <p className="card-title">{item.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          )})
+        setMatchCards(tempCards)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+    });
   }
 
   const SwitchButton = () => {
@@ -58,7 +136,7 @@ export default function DiscoverNew(props) {
     return (
         <div className="switch-button">
           Artist
-        <Switch
+        <Switch className="switchComp"
           onChange={handleChange}
           checked={checked}
           onColor="#1ecd97"
@@ -75,6 +153,34 @@ export default function DiscoverNew(props) {
         </div>
     );
   };
+
+  function SearchTry() {
+    const [searchTerm, setSearchTerm] = React.useState('')
+  
+    React.useEffect(() => {
+      const delayDebounceFn = setTimeout(() => {
+        console.log(searchTerm)
+        let searchNew = searchTerm
+        searchApiCall(searchNew)
+      }, 500)
+  
+      return () => clearTimeout(delayDebounceFn)
+    }, [searchTerm])
+  
+    return (
+      <div>
+        <input
+          className="discoverSearch"
+          autoFocus
+          type='text'
+          autoComplete='off'
+          className='live-search-field'
+          placeholder={`Search By ${term}!`}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+    )
+  }
 
   function Search() {
     return (
@@ -94,7 +200,7 @@ export default function DiscoverNew(props) {
                 errors,
             }) => (
               <Form noValidate>
-                <InputGroup>
+                <InputGroup className="discoverSearch">
                     <Form.Group controlId="formSearch">
                         <Form.Control
                             // class="form-control transparent-input"
@@ -103,7 +209,7 @@ export default function DiscoverNew(props) {
                             name="search"
                             value={values.search}
                             onChange={handleChange}
-                            onBlur={handleBlur}
+                            onBlur={searchApiCall}
                         />
                     </Form.Group>
                     <SwitchButton />
@@ -114,38 +220,54 @@ export default function DiscoverNew(props) {
     )
   }
 
-  if(!loaded)
-  axios.get('https://api.spotify.com/v1/me/top/artists?time_range='+ term +'_term&limit=50')
-    .then((response) => {
-      loaded = true;
-      let tempCards = []
-      let index = 0;
-      response.data.items.forEach((item) => {
-        index++;
-        tempCards.push(
-          <div key={item.id}>
-              <Card className="artist-card seeMore" onClick={() => artistTop(item.id, item.name)}>
-                <Card.Img variant="top" src={item.images[1].url} />
-                <Card.Body>
-                  <span>{index}.{item.name}</span>
-                </Card.Body>
-              </Card>
-          </div>
-        )
-      })
-      setCards(tempCards)
-    })
-    .catch(error => {
-      console.error('There was an error!', error);
-  });
-  
   return (
+    // <Container fluid>
+    //       <Row className="background-banner">
+    //           <Col sm={8} className = "col-filter">
+    //           <Form className="search-table">
+    //               <Form.Row>
+    //                 <Col>
+    //                   <h1 className="text-white">DISCOVER NEW MUSIC</h1>
+    //                 </Col>
+    //               </Form.Row>
+    //               <Form.Row className="search-row">
+    //                 <Search />
+    //               </Form.Row>
+    //             </Form>
+    //               <div className="div-search-suggested">
+    //                 {matchCards}
+    //               </div>
+    //               <div className="div-search-results">
+    //                 {suggestedCards}
+    //               </div>
+    //           </Col>
+    //           <Col sm={4} className = "col-filter">
+
+    //           </Col>
+    //       </Row>
+    // </Container>
+
+
+
       <div className="background-banner">
-        <table className="search-table"><tbody>
-          <tr><th><h1 className="text-white">DISCOVER NEW MUSIC</h1></th></tr>
-          <tr className="search-row"><Search /></tr>
-        </tbody></table>
-      </div>
+        <Form className="search-table">
+          <Form.Row>
+            <Col>
+              <h1 className="text-white">DISCOVER NEW MUSIC</h1>
+            </Col>
+          </Form.Row>
+         <Form.Row className="search-row">
+           <SearchTry />
+           <SwitchButton />
+         </Form.Row>
+      </Form>
+        <div className="div-search-suggested">
+          {matchCards}
+        </div>
+        <div className="div-search-results">
+          {suggestedCards}
+        </div>
+      </div> 
+      
     );
 }
-

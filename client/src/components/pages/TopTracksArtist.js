@@ -16,8 +16,8 @@ export default function TopTracksArtist(props) {
   const [cards, setCards] = React.useState('')
   const [artistName, setArtistName] = React.useState('')
 
-
   const [currentUrl, playing, toggle] = useAudio();
+
   if (!artistName)
   axios.get('https://api.spotify.com/v1/artists/'+ props.match.params.id + '/top-tracks?market=US')
     .then((response) => {

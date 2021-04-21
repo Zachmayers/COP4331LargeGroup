@@ -73,14 +73,10 @@ function HomeNavbar(props) {
           {localStorage.getItem("user") ? "" : <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>}
           {localStorage.getItem("user") ? "" : <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/About">About Us</NavLink></li>}
  
-          {localStorage.getItem("user") ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopArtists">Top Artists</NavLink></li> : ""}
           {localStorage.getItem("user") ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopTracks">Top Tracks</NavLink></li>:""}
+          {localStorage.getItem("user") ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/TopArtists">Top Artists</NavLink></li> : ""}
           {localStorage.getItem("user") ? <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/DiscoverNew">Discover New Music</NavLink></li>:""}
         </ul>
-        <ul className="navbar-nav ml-auto">
-            <li className="navbar-brand text-white">{props.user.name}</li>
-            <li className="nav-item"><a className="nav-link" href="javascript:void(null);" onClick={logOut}>Log out</a></li>
-          </ul>
         {
           localStorage.getItem("user") ?
           <ul className="navbar-nav ml-auto">

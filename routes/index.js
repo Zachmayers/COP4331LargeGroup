@@ -52,11 +52,11 @@ router.post('/Signup',(req,res)=>{
                 const hrefLink = "https://listenin.us/verify/" + Users.temporarytoken;
                 const msg = {
                     to: user.Email, // Change to your recipient
-                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    from: 'noreply.listenin@gmail.com', // Change to your verified sender
                     subject: 'Sending with SendGrid is Fun',
-                    text: `Hello ${Users.FirstName}, Click Here to Activate your Account or don't I am not your mom`,
+                    text: `Hello ${Users.FirstName}, Click Here to Activate your Account.`,
                     //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
-                    html: `Hello<strong> ${Users.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account or don't I am not your mom</a>`,
+                    html: `Hello<strong> ${Users.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
                 }
                 sgMail.send(msg)
                 .then(() => {
@@ -163,7 +163,7 @@ router.put('/verify', (req, res) => {
                         console.log("creating email");
                         const msg = {
                             to: user.Email, // Change to your recipient
-                            from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                            from: 'noreply.listenin@gmail.com', // Change to your verified sender
                             subject: 'Sending with SendGrid is Fun',
                             text: `Hello ${user.FirstName}, Your account has been successfully activated!`,
                             //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
@@ -222,7 +222,7 @@ router.post('/resetpassword', (req, res) => {
                 const hrefLink = "https://listenin.us/reset/" + user.temporarytoken;
                 const msg = {
                     to: Email, // Change to your recipient
-                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    from: 'noreply.listenin@gmail.com', // Change to your verified sender
                     subject: 'Listenin.us Reset Password',
                     text: `Hello ${user.FirstName}, Click Here to Reset your Password`,
                     html: `Hello<strong> ${user.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Reset your Password</a>`,
