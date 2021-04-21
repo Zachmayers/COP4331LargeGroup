@@ -1,6 +1,7 @@
 import React from 'react'; 
 import Particles from "react-tsparticles";
-import './Style/Header.css';
+import BG from './fondodark.jpg';
+// import './Style/Header.css';
 
 
 function Background() {
@@ -10,9 +11,8 @@ function Background() {
           
           options={{
             background: {
-              color: {
-                value: "#31406e",
-              },
+              color: '#390a36',
+
             },
             fpsLimit: 60,
             interactivity: {
@@ -63,7 +63,7 @@ function Background() {
                 enable: true,
                 outMode: "bounce",
                 random: false,
-                speed: 6,
+                speed: 2,
                 straight: false,
               },
               number: {

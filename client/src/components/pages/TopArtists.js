@@ -1,46 +1,86 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
+import axios from 'axios';
+import { Card } from 'react-bootstrap';
+import './Style/Header.css';
 import './Banner.css';
-import { SpotifyApiContext } from 'react-spotify-api';
-import { Artist } from 'react-spotify-api'
-import { ArtistAlbums } from 'react-spotify-api'
-import { useArtist } from 'react-spotify-api'
-import Card from 'react-bootstrap/Card'
+import TopTracksArtist from './TopTracksArtist';
 
+export default function TopArtists(props) {
 
+  if (!localStorage.getItem("user")) {
+    props.history.push("/")
+  }
 
-function TopArtists() {  
+  const access_token = localStorage.getItem("userToken")
+  const [cards, setCards] = React.useState('')
+  var loaded = false;
 
-    return(
-            <div className="background-banner">
-                <table className="artists-table">
+  axios.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${access_token}`;
+
+  const [term, setTerm] = React.useState('long')
+
+  function showLong(){
+    loaded = false;
+    setTerm('long');
+  }
+  function showMedium(){
+    loaded = false;
+    setTerm('medium');
+  }
+
+  function showShort(){
+    loaded = false;
+    setTerm('short');
+  }
+
+  function artistTop(id, name){
+    props.history.push(`/TopTracksArtist/${id}/${name}`)
+  }
+
+  if(!loaded)
+  axios.get('https://api.spotify.com/v1/me/top/artists?time_range='+ term +'_term&limit=50')
+    .then((response) => {
+      loaded = true;
+      let tempCards = []
+      let index = 0;
+      response.data.items.forEach((item) => {
+        index++;
+        tempCards.push(
+          <div key={item.id}>
+              <Card className="artist-card seeMore" onClick={() => artistTop(item.id, item.name)}>
+                <Card.Img className="songImage" variant="top" src={item.images[1].url} />
+                <Card.Body>
+                  <span>{index}.{item.name}</span>
+                </Card.Body>
+              </Card>
+          </div>
+        )
+      })
+      setCards(tempCards)
+    })
+    .catch(error => {
+      console.error('There was an error!', error);
+  });
+  
+  return (
+      <div className="background-banner">
+                <table className="artists-table"><tbody>
+                  <tr className="artist-title"><th colSpan="2"><h1 className="text-white">Your Top Artists</h1></th></tr>
+                  <tr>
                     <td className="div-titles">
-                        <tr height="200px"><p className="vertical-title">All Time</p></tr>
-                        <tr height="200px"><p className="vertical-title">This Month</p></tr>
-                        <tr height="200px"><p className="vertical-title">Last 6 Months</p></tr>
+                      <table><tbody>
+                        <tr height="150px"><td><a className={(term == "long" ? "active " : "") + "nav-link vertical-title"} onClick={showLong}>All Time</a></td></tr>
+                        <tr height="150px"><td><a className={(term == "medium" ? "active " : "") + "nav-link vertical-title"} onClick={showMedium}>Last 6 Months</a></td></tr>
+                        <tr height="150px"><td><a className={(term == "short" ? "active " : "") + "nav-link vertical-title"} onClick={showShort}>This Month</a></td></tr>
+                      </tbody></table>
                     </td>
                     <td className="div-top-results">
-                       <h1 className="navbar-brand text-white">Top Artists</h1>
-                       <ArtistInfo/>
-                        
+                      {cards}
                     </td>
-                </table>
-                
-            </div>
+                  </tr>
+                  </tbody></table>
+      </div>
     );
 }
-
-function ArtistInfo() {
-    //const { data, loading, error } = useArtist("1XpDYCrUJnvCo9Ez6yeMWh")
-    return(
-        <div>
-            <Card className="artist-card">
-            <Card.Img variant="top" src="https://i.scdn.co/image/848b92c2487efb37ba4c75bc25a242c7b2785440" />
-            <Card.Body>
-                {/* <Card.Title>{data.artist.name}</Card.Title> */}
-            </Card.Body>
-            </Card>
-        </div>
-    );
-}
-
-export default TopArtists;

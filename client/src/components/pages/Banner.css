@@ -1,9 +1,209 @@
 .banner {
-    padding-top:200px;
-    top:0px;
-    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     width: 100%;
     background-image: url("fondodark.jpg");
     z-index: -10;
 }
 
+.background-banner{
+    height: 100vh;
+    padding-top: 10vh; 
+    background-image: url("fondodark.jpg");
+    overflow-y: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.option{
+    width:150px;
+    margin: 50px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height:140px;
+    background-color: white;
+}
+
+.div-top-results{
+    float: right;
+    margin-right:0%;
+    height: 80vh;
+    width: 90vw;
+    background-color: rgba(226, 226, 226, 0.0);
+  overflow-y: auto;
+  padding:5px 20px;
+}
+
+
+.div-titles{
+    color: #164e3c;
+    float: left;
+    margin-left: 3vw;
+    padding-top: 30px;
+    height: 80vh;
+    width: 50px;
+    background-color: rgba(226, 226, 226, 0.0);
+}
+
+.vertical-title{
+	transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    cursor: pointer;
+    color: #1ecd97;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.vertical-title.active {
+    text-decoration: underline;
+}
+
+.vertical-btn{
+    cursor: pointer;
+    background-color: rgba(127, 197, 255, 0.582);
+    border-radius: calc(15px / 2);
+    height:70px;
+    width:30px;
+}
+
+.text-underline{
+    text-decoration: underline;
+}
+
+.artist-card{
+    margin: 20px;
+    float:left;
+    width:200px;
+    height: 260px;
+    background-color: rgba(255, 255, 255, 0.489);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+.artist-card:hover{
+    background-color: rgba(255, 255, 255, 0.895);
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 60%), 0px 3px 4px 0px rgb(0 0 0 / 64%), 0px 1px 8px 0px rgb(0 0 0 / 62%);
+    width:210px;
+    height: 271px;
+    margin: 15px 15px 14px 15px;
+}
+.seeMore:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.895);
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 60%), 0px 3px 4px 0px rgb(0 0 0 / 64%), 0px 1px 8px 0px rgb(0 0 0 / 62%);
+}
+
+.cardInfo{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+}
+
+.artists-table{
+    float: right;
+}
+.artist-track{
+    float:none;
+    margin: auto;
+}
+
+.artist-title{
+  text-align: center;
+}
+
+.topPublic{
+    height: 98vh;
+    overflow: hidden;
+    padding: 50px 80px;
+    text-align: center;
+   
+}
+
+.subTitle{
+    font-size: 12px;
+    color:rgb(59, 59, 59);
+    float: left;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    background: #ffffff33;
+}
+::-webkit-scrollbar-thumb {
+    background: #b3b3b9;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 153, 153);
+}
+
+.div-top-results::-webkit-scrollbar {
+    width: 15px;
+    background: #e1f3f733;
+    border-radius: calc(15px / 3);
+}
+
+.div-top-results::-webkit-scrollbar-thumb {
+    background: #b3b3b9;
+    border-radius: calc(15px / 3);
+}
+
+.div-top-results::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 153, 153);
+}
+
+.song-player{
+    background-color: transparent;
+    border: none;
+    margin: 20% 30%;
+}
+
+.icon-white{
+    color: white;
+}
+.icon-white:hover{
+    color: rgb(197, 193, 193);
+}
+
+.icon-size{
+    font-size: 58px;
+}
+
+.songImage{
+    background-color: rgba(85, 49, 49, 0.151);
+    height:180px;
+}
+
+.artist-card:hover .songImage{
+    height:190px
+}
+
+.search-table{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 70%;
+}
+
+.search-bar{
+    width:300%;
+}
+
+.switch-button{
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-row{
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

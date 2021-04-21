@@ -1,12 +1,39 @@
-.center{
-    text-align: center;
-    display: block;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    width: 100%;
-    color: #ffffff;
+  .center{
+      text-align: center;
+      display: block;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      width: 100%;
+      color: #ffffff;
+    }
+
+  .centerCard{
+      align-items: center;
+      background-color: transparent;
+      border: 0;
+      color: #ffffff;
+      height: 400px;
+      justify-content: center;
+      margin: auto;
+      text-align: center;
+      width: 50%;
   }
+
+  .errorMessage {
+    margin: auto;
+    width: 300px;
+  }
+  .welcomeText {
+    color: white;
+    font-size: xx-large;
+  }
+
+  .link {
+    color:#1ecd97;
+    cursor: pointer;
+  }
+
   .titleText {
     color: ivory;
   }
@@ -66,20 +93,16 @@
     width:140px;
     height:140px;
   }
-  
-  .btn-success {
-    background-color: #3b7d4a!important;
-  }
-  
-  .btn-success:hover {
-    background-color: #4daf64!important;
-  }
-  
+ 
   img.track {
     border: 1px solid #8a8a8a;
   }
 
   .signup-form{
+    margin-top: 20px;
+  }
+
+  .login-form{
     margin-top: 20px;
   }
 
@@ -95,4 +118,39 @@
   .ReactModal__Content{
     margin:auto;
     background: rgb(39 8 69);
+  }
+
+  .closebtn{
+    float:right;
+  }
+
+  .btn{
+    background-color: transparent;
+    border-radius: 1em;
+    border: 0.1em solid #1ecd97;
+    color: #1ecd97;
+    cursor: pointer;
+    font-size: 2vmin;
+    padding: 0.em 1.5em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+  }
+  
+  .btn:hover {
+    background-color: #4daf64!important;
+    color: rgb(54, 3, 65);
+    border: 0.1em solid #1ecd97;
+  }
+
+  .btn-success {
+    background-color: #3b7d4a!important;
+  }
+  
+  .btn-success:hover {
+    background-color: #4daf64!important;
+  }
+
+  .title-image {
+    width: 300px;
+    height: 100px;
   }

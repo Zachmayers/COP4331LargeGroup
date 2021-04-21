@@ -1,67 +1,12 @@
 const express = require ('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs')
-const Article = require('../models/article');
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-//const {JWT_SECRET} = require('../keys')
-//const {SENDGRID_KEY} = require('../keys')
+// const {JWT_SECRET} = require('../keys')
+// const {SENDGRID_KEY} = require('../keys')
 const auth = require('../middleware/auth')
 const sgMail = require('@sendgrid/mail')
-
-
-
-router.get('/articles', function(req, res) {
-    Article.find(function(err, articles) {
-        res.json(articles);
-    });
-});
-
-router.get('/articles/:id', function(req, res) {
-    Article.findById(req.params.id, function(err, article) {
-        if (!article) {
-            res.status(404).send('No result found');
-        } else {
-            res.json(article);
-        }
-    });
-});
-
-router.post('/articles', function(req, res) {
-    let article = new Article(req.body);
-    article.save()
-    .then(article => {
-        res.send(article);
-    })
-    .catch(function(err) {
-        res.status(422).send('Article add failed');
-    });
-});
-
-router.patch('/articles/:id', function(req, res){
-    Article.findByIdAndUpdate(req.params.id, req.body)
-    .then(function() {
-        res.json('Article updated');
-    })
-    .catch(function(err) {
-        res.status(422).send("Article update failed.");
-    });
-});
-
-router.delete('/articles/:id', function(req, res) {
-    Article.findById(req.params.id, function(err, article) {
-        if (!article) {
-            res.status(404).send('Article not found');
-        } else {
-            Article.findByIdAndRemove(req.params.id)
-            .then(function() { res.status(200).json("Article deleted") })
-            .catch(function(err) {
-                res.status(400).send("Article delete failed.");
-            })
-        }
-    });
-})
-
 
 router.get('/protected',auth,(req,res)=>{
     res.send("hello user")
@@ -90,6 +35,7 @@ router.post('/Signup',(req,res)=>{
                 Email,
                 FirstName,
                 LastName,
+                // temporarytoken: jwt.sign(Username, JWT_SECRET)
                 temporarytoken: jwt.sign(Username, process.env.JWT_SECRET)
             })
             //Users.save(function(err,newUser){
@@ -101,15 +47,16 @@ router.post('/Signup',(req,res)=>{
                 console.log("saved successfully")
                 //res.send({msg:"saved successfully"})
                 console.log(user.id)
+                // sgMail.setApiKey(SENDGRID_KEY)
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
-                const hrefLink = "http://localhost:3000/verify/" + Users.temporarytoken;
+                const hrefLink = "https://listenin.us/verify/" + Users.temporarytoken;
                 const msg = {
                     to: user.Email, // Change to your recipient
-                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    from: 'noreply.listenin@gmail.com', // Change to your verified sender
                     subject: 'Sending with SendGrid is Fun',
-                    text: `Hello ${Users.FirstName}, Click Here to Activate your Account or don't I am not your mom`,
+                    text: `Hello ${Users.FirstName}, Click Here to Activate your Account.`,
                     //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
-                    html: `Hello<strong> ${Users.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account or don't I am not your mom</a>`,
+                    html: `Hello<strong> ${Users.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
                 }
                 sgMail.send(msg)
                 .then(() => {
@@ -120,7 +67,7 @@ router.post('/Signup',(req,res)=>{
                 })
                 res.json({
                     //ID: user.id,
-                    succeed: true,
+                    success: true,
                     msg: "User has been successfully activated"
                 });
             })
@@ -147,6 +94,10 @@ router.post('/Login',(req,res)=>{
             console.log("username is scuffed")
             return res.status(442).json({error:"Please add both Email and Password"})
         }
+        if(savedUser.active == false){
+            console.log("user not verified")
+            return res.status(442).json({error:"the user is not verified"})
+        }
         //console.log(Password + "  saved   " + savedUser.Password)
         bcrypt.compare(Password,savedUser.Password)
         .then(doMatch=>{
@@ -154,6 +105,7 @@ router.post('/Login',(req,res)=>{
                 //res.json({msg:"successfully signed in"})
                 const token = jwt.sign(
                     {_id:savedUser._id},
+                    // JWT_SECRET,
                     process.env.JWT_SECRET,
                     { expiresIn: 3600 },
                     (err, token) => {
@@ -183,19 +135,20 @@ router.post('/Login',(req,res)=>{
 
 // @route PUT /verify/{JWT}
 // @desc activate the user's account
-router.put('/verify/:token', (req, res) => {
+router.put('/verify', (req, res) => {
     console.log("putting");
-    User.findOne({ temporarytoken: req.params.token }, (err, user) => {
+    User.findOne({ temporarytoken: req.body.token }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
-        const token = req.params.token; // Save the token from URL for verification
+        const token = req.body.token; // Save the token from URL for verification
         console.log("the token is", token);
         // Function to verify the user's token
+        // jwt.verify(token, JWT_SECRET, (err, decoded) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 console.log(err);
-                res.json({ success: false, msg: "Activation link has expired." }); // Token is expired
+                res.status(442).json({ error: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                res.json({ success: false, msg: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
+                res.status(442).json({ error: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
@@ -205,11 +158,12 @@ router.put('/verify/:token', (req, res) => {
                         console.log(err); // If unable to save user, log error info to console/terminal
                     } else {
                         // If save succeeds, create e-mail object
+                        // sgMail.setApiKey(SENDGRID_KEY)
                         sgMail.setApiKey(process.env.SENDGRID_KEY)
                         console.log("creating email");
                         const msg = {
                             to: user.Email, // Change to your recipient
-                            from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                            from: 'noreply.listenin@gmail.com', // Change to your verified sender
                             subject: 'Sending with SendGrid is Fun',
                             text: `Hello ${user.FirstName}, Your account has been successfully activated!`,
                             //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
@@ -225,7 +179,7 @@ router.put('/verify/:token', (req, res) => {
                             console.error(error)
                         })
                         res.json({
-                            succeed: true,
+                            success: true,
                             msg: "User has been successfully activated9875343"
                         });
                     }
@@ -249,9 +203,10 @@ router.post('/resetpassword', (req, res) => {
         console.log(user);
         if (err) throw err; // Throw error if no valid user
         if(!user){
-            return res.status(422).json({error:"User dont exists with that email"});
+            return res.status(442).json({error:"User dont exists with that email"});
         }
         console.log("signing token");
+        // const newToken = jwt.sign(Email,JWT_SECRET);
         const newToken = jwt.sign(Email,process.env.JWT_SECRET);
         user.temporarytoken = newToken;
         console.log(user.temporary);
@@ -261,12 +216,13 @@ router.post('/resetpassword', (req, res) => {
                 console.log(err); // If unable to save user, log error info to console/terminal
             } else {
                 // If save succeeds, create e-mail object
+                // sgMail.setApiKey(SENDGRID_KEY)
                 sgMail.setApiKey(process.env.SENDGRID_KEY)
                 console.log("creating email");
-                const hrefLink = "http://localhost:3000/reset/" + user.temporarytoken;
+                const hrefLink = "https://listenin.us/reset/" + user.temporarytoken;
                 const msg = {
                     to: Email, // Change to your recipient
-                    from: 'jgwynn@knights.ucf.edu', // Change to your verified sender
+                    from: 'noreply.listenin@gmail.com', // Change to your verified sender
                     subject: 'Listenin.us Reset Password',
                     text: `Hello ${user.FirstName}, Click Here to Reset your Password`,
                     html: `Hello<strong> ${user.FirstName}</strong>,<br><br><a href=${hrefLink}> Click Here to Reset your Password</a>`,
@@ -281,7 +237,7 @@ router.post('/resetpassword', (req, res) => {
                     console.error(error)
                 })
                 res.json({
-                    succeed: true,
+                    success: true,
                     msg: "User has been successfully requested reset"
                 });
             }
@@ -300,20 +256,34 @@ router.post('/newpassword', (req,res) => {
     .then(user=>{
         if(!user){
             console.log(user)
-            return res.status(422).json({error: 'something done broke'})
+            return res.status(442).json({error: 'something done broke'})
         }
         bcrypt.hash(newPassword,12)
         .then(hashedPassword=>{
             user.Password = hashedPassword
             user.temporarytoken = false
             user.save().then((saveduser)=>{
-               res.json({ succeed: true,
+               res.json({ success: true,
                         message:"password updated success"})
            })
         })
     })
 })
 
-
+router.delete('/delete/:id', (req,res) => {
+    const id = req.params.id;
+    if(!id){
+        console.log("id is missing")
+        return res.status(442).json({error:"ID is missing"})
+    }
+    User.deleteOne({_id: id}, function(err){
+        if(err) console.log(err);
+        res.json({
+            //ID: user.id,
+            success: true,
+            msg: "User has been successfully deleted"
+        });
+    })
+})
 
 module.exports = router;

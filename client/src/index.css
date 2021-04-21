@@ -3,11 +3,11 @@ body {
   font-family: 'Roboto Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #390938;
+  background-color:#390a36;
   background-image: 'fondo.jpg';
 }
 
 code {
   font-family: 'Oswald', sans-serif;
-  color: #ffffff
+  /* color: #ffffff */
 }
