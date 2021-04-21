@@ -20,6 +20,7 @@ function Delete(props) {
                 if (response.data.success == true) {
                     setSuccess(true)
                     setFailure(false)
+                    localStorage.clear()
                     setTimeout(function () {
                         window.location.href = 'https://listenin.us/'
                     }, 5000);
