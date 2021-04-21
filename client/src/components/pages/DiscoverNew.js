@@ -35,10 +35,8 @@ export default function DiscoverNew(props) {
     setTerm('Song');
   }
 
-  function getResults(value) {
-    let type = checked ? 'track' : 'artist'
-    let seed = checked ? `seed_tracks=${value}` : `seed_artists=${value}`
-    axios.get(`https://api.spotify.com/v1/recommendations?limit=40&market=US&${seed}`)
+  function getResultsCard(value) {
+    axios.get(`https://api.spotify.com/v1/recommendations?limit=40&market=US&seed_tracks=${value}`)
       .then((response) => {
         let tempCards = []
         let index = 0
@@ -46,7 +44,7 @@ export default function DiscoverNew(props) {
           index++;
           tempCards.push(
             <div key={item.id}>
-                <div className="card mb-3 seeMore resultCard" onClick={() => getResults(item.id)}>
+                <div className="card mb-3 seeMore resultCard" onClick={() => getResultsCard(item.id)}>
                   <div className="row no-gutters">
                     <div className="col-md-2 resultPic">
                       <img className="resultPic" src={item.album.images[0].url} class="card-img"/>
@@ -67,6 +65,40 @@ export default function DiscoverNew(props) {
         console.error('There was an error!', error);
     });
   }
+
+  function getResults(value) {
+    let type = checked ? 'track' : 'artist'
+    let seed = checked ? `seed_tracks=${value}` : `seed_artists=${value}`
+    axios.get(`https://api.spotify.com/v1/recommendations?limit=40&market=US&${seed}`)
+      .then((response) => {
+        let tempCards = []
+        let index = 0
+        response.data.tracks.forEach((item) => {
+          index++;
+          tempCards.push(
+            <div key={item.id}>
+                <div className="card mb-3 seeMore resultCard" onClick={() => getResultsCard(item.id)}>
+                  <div className="row no-gutters">
+                    <div className="col-md-2 resultPic">
+                      <img className="resultPic" src={item.album.images[0].url} class="card-img"/>
+                    </div>
+                    <div className="col-md-10">
+                      <div className="card-body">
+                        <h4 className="card-title">{index}.{item.name}</h4>
+                        <p className="card-title">{item.artists[0].name}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          )})
+        setSuggestedCards(tempCards)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+    });
+  }
+
 
   function searchApiCall(data) {
     setSearchTerm(data)
