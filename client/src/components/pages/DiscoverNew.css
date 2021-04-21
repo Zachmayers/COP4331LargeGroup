@@ -253,6 +253,7 @@
 }
 
 .live-search-field{
+    padding-left: 5px;
     height: 45px;
     width:900px;
 }
@@ -278,4 +279,16 @@
     margin-right: 20%;
     margin-left: 20%;
     height: auto;
+}
+
+.smallCard{
+    padding-left:0px;
+}
+
+.smallCardTitle{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    text-align: left;
 }

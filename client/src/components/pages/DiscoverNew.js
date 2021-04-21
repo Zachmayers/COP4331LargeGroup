@@ -87,8 +87,8 @@ export default function DiscoverNew(props) {
                         <img src={item.images[0].url} className="searchPic"/>
                       </div>
                       <div className="col-md-8">
-                        <div className="card-body">
-                          <p className="card-title">{item.name}</p>
+                      <div className="card-body smallCard">
+                          <p className="card-title smallCardTitle">{item.name}</p>
                         </div>
                       </div>
                     </div>
@@ -106,8 +106,8 @@ export default function DiscoverNew(props) {
                       <img src={item.album.images[0].url} className="searchPic"/>
                     </div>
                     <div className="col-md-8">
-                      <div className="card-body">
-                        <p className="card-title">{item.name}</p>
+                    <div className="card-body smallCard">
+                          <p className="card-title smallCardTitle">{item.name}</p>
                       </div>
                     </div>
                   </div>
