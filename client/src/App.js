@@ -63,6 +63,7 @@ function HomeNavbar(props) {
     function logOut() {
       props.setUser({})
       localStorage.clear()
+      window.location = 'https://listenin.us'
     }
   const user = localStorage.getItem("user")
   return(

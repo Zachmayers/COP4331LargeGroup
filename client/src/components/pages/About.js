@@ -9,7 +9,6 @@ import Player from './Player';
 import Banner from './Banner';
 
 function About() { 
-
   return (
     <div>
       <div>

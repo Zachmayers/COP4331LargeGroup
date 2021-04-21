@@ -12,7 +12,6 @@ import Player from './Player';
 import TopTracks from './TopTracks';
 
 function Home(props) { 
-
   // if (props.user.id) {
 	// 	props.history.push('/TopTracks')
 	// }
